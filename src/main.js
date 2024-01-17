@@ -1,5 +1,9 @@
-import { createApp } from 'vue'
-import './style/index.css'
+import { createApp } from "vue/dist/vue.esm-bundler";
+import router from './router'
 import App from './App.vue'
+import './style/index.css'
 
-createApp(App).mount('#app')
+const app = createApp(App)
+
+app.use(router)
+app.mount('#app')

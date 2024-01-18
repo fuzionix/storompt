@@ -1,24 +1,28 @@
 import { createRouter, createWebHashHistory } from 'vue-router'
 
-const Home = { 
-  template: '<div>Home</div>' 
-}
-const Demo = { 
-  template: '<div>Demo</div>' 
-}
-
 const routes = [
   {
     path: '/',
     name: 'home',
-    component: Home,
+    component: () => import('../views/Homepage.vue'),
     alias: '/home'
   },
   {
     path: '/demo',
     name: 'demo',
-    component: Demo
+    component: () => import('../views/DemoPage.vue')
   },
+  {
+    path: '/404',
+    name: '404',
+    component: () => import('../views/Error.vue'),
+    hidden: true
+  },
+  {
+    path: '/:catchAll(.*)',
+    redirect: '/404',
+    hidden: true
+  }
 ]
 
 const router = createRouter({

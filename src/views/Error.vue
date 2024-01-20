@@ -5,6 +5,8 @@
 <script>
 export default {
     name: 'Error',
+    props: [
+    ],
     components: {
     },
     data() {
@@ -19,6 +21,6 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
 
 </style>

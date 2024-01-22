@@ -1,14 +1,16 @@
 <template>
-  <h1 class="text-theme text-2xl">This is About</h1>
+  <section id="about-page" class="about-page">
+    <h1 class="text-theme text-2xl">This is About</h1>
+  </section>
 </template>
 
 <script>
 export default {
     name: 'AboutPage',
-    props: [
-    ],
     components: {
     },
+    props: [
+    ],
     data() {
       return {
 

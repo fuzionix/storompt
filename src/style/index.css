@@ -4,3 +4,28 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer components {
+    .center {
+      @apply flex justify-center items-center;
+    }
+}
+
+:root {
+    --grid-color: #e4e7da;
+    --menu: 300px;
+    --info: 380px;
+}
+
+body > * {
+    position: relative;
+    min-height: 100vh;
+}
+
+.grid-background {
+    background: repeating-linear-gradient(90deg, var(--grid-color) 0, var(--grid-color) 1px, transparent 0, transparent 50%), repeating-linear-gradient(180deg, var(--grid-color) 0, var(--grid-color) 1px, transparent 0, transparent 50%);
+    background-size: 20em 20em;
+    background-color: #ffff;
+    background-position: center;
+    opacity: 1;
+}

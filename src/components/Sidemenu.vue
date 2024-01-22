@@ -1,14 +1,14 @@
 <template>
-  <h1 class="text-theme text-2xl">This is sidemenu</h1>
+  <menu id="sidemenu" class="absolute left-[calc(var(--menu)*-1)] max-w-[--menu] w-full h-full border-r border-theme-grid bg-white md:left-0"></menu>
 </template>
 
 <script>
 export default {
     name: 'Sidemenu',
-    props: [
-    ],
     components: {
     },
+    props: [
+    ],
     data() {
       return {
 

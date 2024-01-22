@@ -1,14 +1,15 @@
 <template>
-  <h1 class="text-theme text-2xl">This is infoPanel</h1>
+  <section id="info-panel" class="absolute right-[calc(var(--info)*-1)] max-w-[--info] w-full h-full border-l border-theme-grid bg-white xl:right-0">
+  </section>
 </template>
 
 <script>
 export default {
     name: 'InfoPanel',
-    props: [
-    ],
     components: {
     },
+    props: [
+    ],
     data() {
       return {
 

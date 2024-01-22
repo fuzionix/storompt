@@ -1,14 +1,16 @@
 <template>
-  <h1 class="text-theme text-2xl">This is Profile</h1>
+  <section id="profile" class="profile">
+    <h1 class="text-theme text-2xl">This is Profile</h1>
+  </section>
 </template>
 
 <script>
 export default {
     name: 'Profile',
-    props: [
-    ],
     components: {
     },
+    props: [
+    ],
     data() {
       return {
 

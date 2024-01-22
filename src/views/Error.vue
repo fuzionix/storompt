@@ -1,14 +1,16 @@
 <template>
-  <h1 class="text-theme text-2xl">This is Error</h1>
+  <section id="error" class="error">
+    <h1 class="text-theme text-2xl">This is Error</h1>
+  </section>
 </template>
 
 <script>
 export default {
     name: 'Error',
-    props: [
-    ],
     components: {
     },
+    props: [
+    ],
     data() {
       return {
 

@@ -1,5 +1,6 @@
 /** @type {import('tailwindcss').Config} */
 const defaultTheme = require('tailwindcss/defaultTheme')
+const colors = require('tailwindcss/colors')
 
 export default {
   content: [
@@ -8,6 +9,11 @@ export default {
   ],
   theme: {
     colors: {
+      transparent: 'transparent',
+      current: 'currentColor',
+      black: colors.black,
+      white: colors.white,
+
       'theme': {
         DEFAULT: '#c7e64c',
         pale: '#e7fa9e',

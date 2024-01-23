@@ -15,6 +15,7 @@
     --grid-color: #e4e7da;
     --menu: 300px;
     --info: 380px;
+    --header: 100px;
 }
 
 body > * {

@@ -8,14 +8,14 @@
 <script>
 import { ref } from 'vue'
 
-import Sidemenu from '@/components/Sidemenu.vue'
-import InfoPanel from '@/components/InfoPanel.vue'
+import Sidemenu from '@/src/components/Sidemenu.vue'
+import InfoPanel from '@/src/components/InfoPanel.vue'
 
 export default {
     name: 'DemoPage',
     components: {
       'sidemenu': Sidemenu,
-      'info-panel': InfoPanel
+      'info-panel': InfoPanel,
     },
     props: [
     ],

@@ -1,7 +1,7 @@
 <template>
   <section id="homepage" class="homepage">
     <h1 class="text-theme text-2xl">This is Home</h1>
-    <Button>This is Button</Button>
+    <cn-button>This is Button</cn-button>
   </section>
 </template>
 
@@ -11,7 +11,7 @@ import { Button } from '@/src/components_shadcn/ui/button'
 export default {
     name: 'Homepage',
     components: {
-      Button
+      'cn-button': Button
     },
     props: [
     ],

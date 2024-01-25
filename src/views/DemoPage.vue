@@ -6,7 +6,7 @@
         <img src="@/src/assets/icon/arrow_left_circle.svg" class="w-6" alt="close menu">
         <div class="text-center px-7 mt-[-.25rem]">
           <h3 class="font-bold text-lg leading-normal">Forgotten City</h3>
-          <p class="text-xs opacity-70 leading-relaxed">Dive into an entire captivating story just by interacting</p>
+          <p class="text-xs opacity-70 max-w-[200px] leading-relaxed whitespace-nowrap overflow-hidden text-ellipsis md:max-w-[300px]">Dive into an entire captivating story just by interacting</p>
         </div>
         <img src="@/src/assets/icon/info_square.svg" class="w-6" alt="close menu">
       </header>

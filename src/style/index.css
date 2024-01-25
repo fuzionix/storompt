@@ -109,3 +109,7 @@ body > * {
   background-position: center;
   opacity: 1;
 }
+
+::-webkit-scrollbar {
+  width: 0px;
+}

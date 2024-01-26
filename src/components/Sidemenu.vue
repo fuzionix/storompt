@@ -1,12 +1,12 @@
 <template>
-  <menu id="sidemenu" class="absolute left-[calc(var(--menu)*-1)] max-w-[--menu] overflow-y-scroll w-full h-full border-r border-theme-grid bg-white md:left-0 [&>*]:select-none">
-    <div class="fixed w-[--menu] h-[--header] border-b border-r border-theme-grid bg-white z-10">
+  <menu id="sidemenu" class="absolute left-[calc(var(--menu)*-1)] max-w-[--menu] overflow-y-scroll w-full h-full pb-[--header] border-r border-theme-grid bg-white md:left-0 [&>*]:select-none">
+    <section class="fixed w-[--menu] h-[--header] border-b border-r border-theme-grid bg-white z-10">
       <div class="absolute flex w-full h-full px-7 justify-between">
         <img src="@/src/assets/logo/storompt_logo_dark_only.svg" class="w-10" alt="storompt logo">
         <img src="@/src/assets/icon/close_square.svg" class="w-6" alt="close button">
       </div>
-    </div>
-    <div class="mt-[--header] p-7 pb-0">
+    </section>
+    <section class="mt-[--header] p-7 pb-0">
       <h5 class="text-sm text-theme-darklight font-semibold">NAVIGATION</h5>
       <div class="flex flex-col py-4">
         <button class="flex items-center py-2 px-3 mb-2 rounded-lg border-x-theme-gridlight border duration-200 hover:bg-theme-light active:bg-theme-grid">
@@ -22,8 +22,8 @@
           <span class="mb-[0.125rem] font-medium text-sm">Setting</span>
         </button>
       </div>
-    </div>
-    <div class="">
+    </section>
+    <section class="flex flex-col">
       <h5 class="px-7 pt-4 text-sm text-theme-darklight font-semibold">YOUR JOURNEY</h5>
       <div class="my-4 border-y border-y-theme-gridlight">
         <button class="group relative flex flex-col justify-center w-full h-20 px-10 border-b border-b-theme-gridlight first:bg-theme-pale hover:bg-theme-light last:border-0 
@@ -54,10 +54,44 @@
           <p class="text-xs opacity-70">At maximus ante fermentum sit</p>
           <img src="@/src/assets/icon/more_square.svg" class="hidden absolute right-2 top-2 w-5 rounded-full group-hover:block hover:bg-[#0001] active:bg-theme-darklight" alt="more">
         </button>
-        
-
       </div>
-    </div>
+      <button class="text-theme-dark text-xs text-center font-semibold hover:underline">Show More</button>
+    </section>
+    <section class="flex flex-wrap justify-center mx-7 pt-7 pb-3 text-xs border-b border-theme-darklight
+    [&>a]:opacity-75 [&>a]:text-theme-black [&>a]:mx-1.5 [&>a]:my-0.5 hover:[&>a]:underline hover:[&>a]:opacity-100">
+      <router-link to="/about">About</router-link>
+      <router-link to="/privacy-policy">Privacy Policy</router-link>
+      <router-link to="/terms-of-use">Terms of Use</router-link>
+      <router-link to="/contact-us">Contact Us</router-link>
+      <router-link to="/feedback">Feedback</router-link>
+    </section>
+    <section class="flex justify-evenly p-4 [&>*>img]:w-6">
+      <a href="https://github.com/TaylonChan/storompt" target="_blank">
+        <img src="@/src/assets/logo/github.svg" alt="github logo">
+      </a>
+      <div class="-mx-7 my-1 border"></div>
+      <a href="" target="_blank">
+        <img src="@/src/assets/logo/dev.svg" alt="dev logo">
+      </a>
+      <div class="-mx-7 my-1 border"></div>
+      <a href="" target="_blank">
+        <img src="@/src/assets/logo/threads.svg" alt="threads logo">
+      </a>
+    </section>
+    <section class="fixed bottom-0 w-[--menu] h-[--header] border-t border-r bg-white z-10">
+      <div class="flex justify-between items-center h-full w-full px-7">
+        <div class="-mr-4">
+          <img src="@/src/assets/avatar/avatar_me.svg" class="w-10" alt="">
+        </div>
+        <div class="">
+          <h3 class="text-sm font-semibold">Taylon Chan</h3>
+          <h5 class="text-xs opacity-75">Free Plan - <span class="text-theme-dark font-semibold">Upgrade</span></h5>
+        </div>
+        <div class="">
+          <img src="@/src/assets/icon/logout.svg" class="w-6" alt="">
+        </div>
+      </div>
+    </section>
   </menu>
 </template>
 

@@ -1,14 +1,23 @@
 <template>
-  <menu id="sidemenu" class="absolute left-[calc(var(--menu)*-1)] max-w-[--menu] overflow-y-scroll w-full h-full pb-[--header] border-r border-theme-grid bg-white md:left-0 [&>*]:select-none">
+  <menu 
+    id="sidemenu" 
+    ref="sidemenu" 
+    class="absolute left-[calc(var(--menu)*-1)] max-w-[--menu] overflow-y-scroll w-full h-full pb-[--header] border-r border-theme-grid bg-white md:left-0 duration-300 [&>*]:select-none"
+    :class="store.sidemenuStatus ? 'left-0' : 'md:left-[calc(var(--menu)*-1)]'"
+  >
     <section class="fixed w-[--menu] h-[--header] border-b border-r border-theme-grid bg-white z-10">
-      <div class="absolute flex w-full h-full px-7 justify-between">
+      <div class="absolute flex w-full h-full px-7 justify-between items-center">
         <img src="@/src/assets/logo/storompt_logo_dark_only.svg" class="w-10" alt="storompt logo">
-        <img src="@/src/assets/icon/close_square.svg" class="w-6" alt="close button">
+        <img 
+          @click="closeSidemenu"
+          src="@/src/assets/icon/close_square.svg" 
+          class="w-6 h-6 cursor-pointer duration-200 hover:scale-125" 
+          alt="close button"
+        >
       </div>
     </section>
     <section class="mt-[--header] p-7 pb-0">
-      <h5 class="text-sm text-theme-darklight font-semibold">NAVIGATION</h5>
-      <div class="flex flex-col py-4">
+      <div class="flex flex-col pb-2">
         <button class="flex items-center py-2 px-3 mb-2 rounded-lg border-x-theme-gridlight border duration-200 hover:bg-theme-light active:bg-theme-grid">
           <img src="@/src/assets/icon/discovery.svg" class="mr-8" alt="explore">
           <span class="mb-[0.125rem] font-medium text-sm">Explore</span>
@@ -96,20 +105,31 @@
 </template>
 
 <script>
+import { useStatusStore } from '@/src/store/useStatusStore'
+
 export default {
     name: 'Sidemenu',
     components: {
     },
     props: [
+      'openSidemenu'
     ],
     data() {
       return {
-
+        store: useStatusStore(),
       }
     },
     computed: {
     },
+    created() {
+    },
     methods: {
+      closeSidemenu() {
+        this.rect = this.$refs.sidemenu.getBoundingClientRect()
+        if (this.rect['left'] === 0) {
+          this.store.sidemenuStatus = false
+        }
+      }
     }
 }
 </script>

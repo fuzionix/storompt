@@ -2,12 +2,12 @@
   <menu 
     id="sidemenu" 
     ref="sidemenu" 
-    class="absolute left-[calc(var(--menu)*-1)] max-w-[--menu] overflow-y-scroll w-full h-full pb-[--header] border-r border-theme-grid bg-white md:left-0 duration-300 [&>*]:select-none"
-    :class="store.sidemenuStatus ? 'left-0' : 'md:left-[calc(var(--menu)*-1)]'"
+    class="absolute max-w-[--menu] overflow-y-scroll w-full h-full pb-[--header] border-r border-theme-grid bg-white duration-300 [&>*]:select-none"
+    :class="store.sidemenuStatus ? 'left-0' : 'left-[calc(var(--menu)*-1)]'"
   >
     <section class="fixed w-[--menu] h-[--header] border-b border-r border-theme-grid bg-white z-10">
       <div class="absolute flex w-full h-full px-7 justify-between items-center">
-        <img src="@/src/assets/logo/storompt_logo_dark_only.svg" class="w-10" alt="storompt logo">
+        <img src="@/src/assets/logo/storompt_logo_dark_only.svg" class="w-10 cursor-pointer" alt="storompt logo">
         <img 
           @click="closeSidemenu"
           src="@/src/assets/icon/close_square.svg" 
@@ -90,14 +90,14 @@
     <section class="fixed bottom-0 w-[--menu] h-[--header] border-t border-r bg-white z-10">
       <div class="flex justify-between items-center h-full w-full px-7">
         <div class="-mr-4">
-          <img src="@/src/assets/avatar/avatar_me.svg" class="w-10" alt="">
+          <img src="@/src/assets/avatar/avatar_me.svg" class="w-10 cursor-pointer" alt="">
         </div>
         <div class="">
           <h3 class="text-sm font-semibold">Taylon Chan</h3>
           <h5 class="text-xs opacity-75">Free Plan - <span class="text-theme-dark font-semibold">Upgrade</span></h5>
         </div>
         <div class="">
-          <img src="@/src/assets/icon/logout.svg" class="w-6" alt="">
+          <img src="@/src/assets/icon/logout.svg" class="w-6 cursor-pointer" alt="">
         </div>
       </div>
     </section>
@@ -125,10 +125,7 @@ export default {
     },
     methods: {
       closeSidemenu() {
-        this.rect = this.$refs.sidemenu.getBoundingClientRect()
-        if (this.rect['left'] === 0) {
-          this.store.sidemenuStatus = false
-        }
+        this.store.sidemenuStatus = false
       }
     }
 }

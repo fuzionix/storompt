@@ -1,8 +1,11 @@
 import { defineStore } from 'pinia'
 
-export const useStatusStore = defineStore('sidemenuStatus', {
+export const useStatusStore = defineStore('menuStatus', {
   state: () => {
-    return { sidemenuStatus: true }
+    return { 
+      sidemenuStatus: true,
+      infomenuStatus: false 
+    }
   },
   getters: {
   },

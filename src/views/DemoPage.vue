@@ -34,6 +34,19 @@
           alt="close menu"
         >
       </header>
+      <section id="chat" class="w-full h-full absolute overflow-y-scroll">
+        <div id="chat-message" class="h-[2000px]">
+          <p class="">1n1</p>
+        </div>
+        <div id="chat-input" class="w-full fixed bottom-[100px]">
+          <div id="input-frame">
+            <form action="">
+              iiihiuoh uihui hi
+              <input type="text">
+            </form>
+          </div>
+        </div>
+      </section>
     </main>
     <info-panel />
   </section>
@@ -85,6 +98,8 @@ export default {
       detectWindowSize() {
         if (ref(window.innerWidth).value <= this.minwindowWidth) {
           this.store.sidemenuStatus = false
+        } else {
+          this.store.sidemenuStatus = true
         }
       },
       changeIcon(status) {

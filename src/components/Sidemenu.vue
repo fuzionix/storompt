@@ -5,9 +5,11 @@
     class="absolute max-w-[--menu] overflow-y-scroll w-full h-full pb-[--header] border-r border-theme-grid bg-white duration-300 [&>*]:select-none"
     :class="store.sidemenuStatus ? 'left-0' : 'left-[calc(var(--menu)*-1)]'"
   >
-    <section class="fixed w-[--menu] h-[--header] border-b border-r border-theme-grid bg-white z-10">
+    <section id="menu-header" class="fixed w-[--menu] h-[--header] border-b border-r border-theme-grid bg-white z-10">
       <div class="absolute flex w-full h-full px-7 justify-between items-center">
-        <img src="@/src/assets/logo/storompt_logo_dark_only.svg" class="w-10 cursor-pointer" alt="storompt logo">
+        <button>
+          <img src="@/src/assets/logo/storompt_logo_dark_only.svg" class="w-10" alt="storompt logo">
+        </button>
         <img 
           @click="closeSidemenu"
           src="@/src/assets/icon/close_square.svg" 
@@ -16,7 +18,7 @@
         >
       </div>
     </section>
-    <section class="mt-[--header] p-7 pb-0">
+    <section id="navigation" class="mt-[--header] p-7 pb-0">
       <div class="flex flex-col pb-2">
         <button class="flex items-center py-2 px-3 mb-2 rounded-lg border-x-theme-gridlight border duration-200 hover:bg-theme-light active:bg-theme-grid">
           <img src="@/src/assets/icon/discovery.svg" class="mr-8" alt="explore">
@@ -32,7 +34,7 @@
         </button>
       </div>
     </section>
-    <section class="flex flex-col">
+    <section id="journey" class="flex flex-col">
       <h5 class="px-7 pt-4 text-sm text-theme-darklight font-semibold">YOUR JOURNEY</h5>
       <div class="my-4 border-y border-y-theme-gridlight">
         <button class="group relative flex flex-col justify-center w-full h-20 px-10 border-b border-b-theme-gridlight first:bg-theme-pale hover:bg-theme-light last:border-0 
@@ -66,7 +68,7 @@
       </div>
       <button class="text-theme-dark text-xs text-center font-semibold hover:underline">Show More</button>
     </section>
-    <section class="flex flex-wrap justify-center mx-7 pt-7 pb-3 text-xs border-b border-theme-darklight
+    <section id="internal-link" class="flex flex-wrap justify-center mx-7 pt-7 pb-3 text-xs border-b border-theme-darklight
     [&>a]:opacity-75 [&>a]:text-theme-black [&>a]:mx-1.5 [&>a]:my-0.5 hover:[&>a]:underline hover:[&>a]:opacity-100">
       <router-link to="/about">About</router-link>
       <router-link to="/privacy-policy">Privacy Policy</router-link>
@@ -74,7 +76,7 @@
       <router-link to="/contact-us">Contact Us</router-link>
       <router-link to="/feedback">Feedback</router-link>
     </section>
-    <section class="flex justify-evenly p-4 [&>*>img]:w-6">
+    <section id="external-link" class="flex justify-evenly p-4 [&>*>img]:w-6">
       <a href="https://github.com/TaylonChan/storompt" target="_blank">
         <img src="@/src/assets/logo/github.svg" alt="github logo">
       </a>
@@ -87,18 +89,18 @@
         <img src="@/src/assets/logo/threads.svg" alt="threads logo">
       </a>
     </section>
-    <section class="fixed bottom-0 w-[--menu] h-[--header] border-t border-r bg-white z-10">
+    <section id="profile-panel" class="fixed bottom-0 w-[--menu] h-[--header] border-t border-r bg-white z-10">
       <div class="flex justify-between items-center h-full w-full px-7">
-        <div class="-mr-4">
-          <img src="@/src/assets/avatar/avatar_me.svg" class="w-10 cursor-pointer" alt="">
-        </div>
+        <button class="-mr-4">
+          <img src="@/src/assets/avatar/avatar_me.svg" class="w-10" alt="">
+        </button>
         <div class="">
           <h3 class="text-sm font-semibold">Taylon Chan</h3>
           <h5 class="text-xs opacity-75">Free Plan - <span class="text-theme-dark font-semibold">Upgrade</span></h5>
         </div>
-        <div class="">
-          <img src="@/src/assets/icon/logout.svg" class="w-6 cursor-pointer" alt="">
-        </div>
+        <button class="">
+          <img src="@/src/assets/icon/logout.svg" class="w-6" alt="">
+        </button>
       </div>
     </section>
   </menu>

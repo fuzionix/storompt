@@ -42,7 +42,7 @@ module.exports = {
         black: '#2c2e23',
         light: '#f6f7f3',
         verylight: '#f9faf6',
-        darklight: '#c1c3bc',
+        darklight: '#a8aba0',
         gridlight: '#e4e7da',
         100: '#252d06',
         200: '#4a5a0d',

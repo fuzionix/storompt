@@ -91,6 +91,7 @@
   --menu: 300px;
   --info: 380px;
   --header: 100px;
+  --chat: 75px;
 }
 
 body {
@@ -112,4 +113,9 @@ body > * {
 
 ::-webkit-scrollbar {
   width: 0px;
+}
+
+::selection {
+  background-color: #d5ec79;
+  color: black;
 }

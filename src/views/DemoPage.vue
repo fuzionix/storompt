@@ -34,15 +34,23 @@
           alt="close menu"
         >
       </header>
-      <section id="chat" class="w-full h-full absolute overflow-y-scroll">
-        <div id="chat-message" class="h-[2000px]">
+      <section id="chat" class="w-full h-full">
+        <div id="chat-message" class="h-full overflow-y-scroll">
+          <div class="h-[2000px]">123</div>
           <p class="">1n1</p>
         </div>
-        <div id="chat-input" class="w-full fixed bottom-[100px]">
-          <div id="input-frame">
-            <form action="">
-              iiihiuoh uihui hi
-              <input type="text">
+        <div id="chat-input" class="relative bottom-[calc(var(--header)+var(--chat))] h-[--chat] w-full px-7 bg-theme-verylight duration-200 focus-within:shadow-line">
+          <div id="input-frame" class="flex items-center h-full">
+            <img src="@/src/assets/icon/magic_spark.svg" class="w-6" alt="">
+            <div class="h-5 border-r border-r-theme-gray mx-7"></div>
+            <form action="/" method="" class="flex flex-1">
+              <input type="text" class="flex-1 pr-7 text-base bg-transparent min-w-0 focus:outline-0" placeholder="Type Something ...">
+              <button type="submit">
+                <img src="@/src/assets/icon/voice.svg" class="w-6" alt="">
+              </button>
+              <button type="submit" class="ml-4">
+                <img src="@/src/assets/icon/send.svg" class="w-8" alt="">
+              </button>
             </form>
           </div>
         </div>

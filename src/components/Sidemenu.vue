@@ -2,7 +2,7 @@
   <menu 
     id="sidemenu" 
     ref="sidemenu" 
-    class="absolute max-w-[--menu] overflow-y-scroll w-full h-full pb-[--header] border-r border-theme-grid bg-white duration-300 [&>*]:select-none"
+    class="absolute z-10 max-w-[--menu] overflow-y-scroll w-full h-full pb-[--header] border-r border-theme-grid bg-white duration-300 [&>*]:select-none"
     :class="store.sidemenuStatus ? 'left-0' : 'left-[calc(var(--menu)*-1)]'"
   >
     <section id="menu-header" class="fixed w-[--menu] h-[--header] border-b border-r border-theme-grid bg-white z-10">

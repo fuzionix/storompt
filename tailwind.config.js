@@ -102,6 +102,9 @@ module.exports = {
         'sans': ['Plus Jakarta Sans', 'Sans-serif'],
         'display': ['Bagel Fat One', 'Arial', 'Sans-serif'],
       },
+      boxShadow: {
+        'line': '0 -2px 0 #b8df1f',
+      },
       keyframes: {
         "accordion-down": {
           from: { height: 0 },

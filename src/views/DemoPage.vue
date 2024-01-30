@@ -3,9 +3,9 @@
     <sidemenu />
     <main 
       :class="store.sidemenuStatus ? '' : 'md:!pl-0'"
-      class="w-full h-full md:pl-[--menu] xl:pr-[--info] duration-300"
+      class="w-full h-[100dvh] duration-300 md:pl-[--menu] xl:pr-[--info]"
     >
-      <header class="relative flex items-center justify-between h-[--header] border-b bg-white p-7">
+      <header class="relative flex items-center justify-between h-[--header] border-b bg-white p-7 backdrop-blur">
         <img 
           v-if="!fillIcon"
           @mouseover="changeIcon(true)"
@@ -34,17 +34,66 @@
           alt="close menu"
         >
       </header>
-      <section id="chat" class="w-full h-full">
+      <section id="chat" class="w-full h-[calc(100%-var(--header))] overflow-hidden">
         <div id="chat-message" class="h-full overflow-y-scroll">
-          <div class="h-[2000px]">123</div>
-          <p class="">1n1</p>
+          <div id="chat-message-container" class="flex flex-col items-center h-[2000px] p-7">
+            <!-- Display Chat Block -->
+            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
+              <div id="avatar-l" class="w-8">
+                <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
+              </div>
+              <div id="message-bubble" class="flex-1 mx-3">
+                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
+                <div class="px-4 py-3 text-sm bg-theme-verylight rounded-lg">
+                  <p>Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel. </p>
+                </div>
+              </div>
+              <div id="avatar-r" class="w-8">
+                <img src="" class="" alt="">
+              </div>
+            </div>
+
+            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
+              <div id="avatar-l" class="w-8">
+                <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
+              </div>
+              <div id="message-bubble" class="flex-1 mx-3">
+                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
+                <div class="px-4 py-3 text-sm bg-theme-verylight rounded-lg">
+                  <p>Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel. </p>
+                </div>
+              </div>
+              <div id="avatar-r" class="w-8">
+                <img src="" class="" alt="">
+              </div>
+            </div>
+
+            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
+              <div id="avatar-l" class="w-8">
+                <img src="" class="" alt="">
+              </div>
+              <div id="message-bubble" class="flex-1 mx-3">
+                <h5 class="mb-2 text-sm font-semibold text-right">Seraphina Windwhisper</h5>
+                <div class="px-4 py-3 text-sm bg-theme-verylight rounded-lg">
+                  <p>Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel. </p>
+                </div>
+              </div>
+              <div id="avatar-r" class="w-8">
+                <img src="@/src/assets/avatar/avatar_me.svg" class="" alt="">
+              </div>
+            </div>
+            <!-- Display Chat Block -->
+          </div>
         </div>
-        <div id="chat-input" class="relative bottom-[calc(var(--header)+var(--chat))] h-[--chat] w-full px-7 bg-theme-verylight duration-200 focus-within:shadow-line">
+        <div 
+          id="chat-input" 
+          :class="store.sidemenuStatus ? 'md:w-[calc(100%-var(--menu))] xl:w-[calc(100%-var(--info)-var(--menu))]' : 'md:w-full xl:w-[calc(100%-var(--info))]'"
+          class="fixed bottom-0 h-[--chat] px-7 w-full duration-300 bg-theme-verylight focus-within:shadow-line">
           <div id="input-frame" class="flex items-center h-full">
             <img src="@/src/assets/icon/magic_spark.svg" class="w-6" alt="">
             <div class="h-5 border-r border-r-theme-gray mx-7"></div>
             <form action="/" method="" class="flex flex-1">
-              <input type="text" class="flex-1 pr-7 text-base bg-transparent min-w-0 focus:outline-0" placeholder="Type Something ...">
+              <input type="text" class="flex-1 pr-7 text-base bg-transparent min-w-0 focus:outline-0" placeholder="Type Something ..." value="">
               <button type="submit">
                 <img src="@/src/assets/icon/voice.svg" class="w-6" alt="">
               </button>

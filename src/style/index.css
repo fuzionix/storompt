@@ -112,7 +112,22 @@ body > * {
 }
 
 ::-webkit-scrollbar {
-  width: 0px;
+  width: 12px;
+}
+
+::-webkit-scrollbar-track {
+  background: #fff0;
+}
+
+::-webkit-scrollbar-thumb {
+  border: solid 3px transparent;
+  border-radius: 10px;
+  box-shadow: inset 0 0 10px 10px #e4e7da;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  border: solid 3px transparent;
+  box-shadow: inset 0 0 10px 10px #cdd2bb;
 }
 
 ::selection {

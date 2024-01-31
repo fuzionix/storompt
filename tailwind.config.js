@@ -103,7 +103,8 @@ module.exports = {
         'display': ['Bagel Fat One', 'Arial', 'Sans-serif'],
       },
       boxShadow: {
-        'line': '0 -2px 0 #b8df1f',
+        'line': '0 -2px 0 #e4e7da',
+        'line-active': '0 -2px 0 #c3f20c',
         'edge': '0 0 0 1px #c7cab9'
       },
       keyframes: {

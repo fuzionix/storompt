@@ -36,16 +36,17 @@
       </header>
       <section id="chat" class="w-full h-[calc(100%-var(--chat))] overflow-hidden -mt-[--header]">
         <div id="chat-message" class="h-full overflow-y-scroll">
-          <div id="chat-message-container" class="flex flex-col items-center p-7 pt-[calc(1rem+var(--header))]">
+          <div id="chat-message-container" class="flex flex-col items-center px-3 py-7 pt-[calc(1rem+var(--header))] 
+          sm:px-7 [&>*:last-child]:pb-20">
             <!-- Display Chat Block -->
             <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
               <div id="avatar-l" class="w-8">
                 <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
               </div>
-              <div id="message-bubble" class="flex-1 mx-3">
+              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
                 <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p>Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel. </p>
+                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
+                  <p class="w-fit">Et penatibus ut mauris tellus pharetra.</p>
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
@@ -57,10 +58,25 @@
               <div id="avatar-l" class="w-8">
                 <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
               </div>
-              <div id="message-bubble" class="flex-1 mx-3">
+              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
                 <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p>Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel. </p>
+                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
+                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.</p>
+                </div>
+              </div>
+              <div id="avatar-r" class="w-8">
+                <img src="" class="" alt="">
+              </div>
+            </div>
+
+            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
+              <div id="avatar-l" class="w-8">
+                <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
+              </div>
+              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
+                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
+                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
+                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.</p>
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
@@ -72,10 +88,10 @@
               <div id="avatar-l" class="w-8">
                 <img src="" class="" alt="">
               </div>
-              <div id="message-bubble" class="flex-1 mx-3">
-                <h5 class="mb-2 text-sm font-semibold text-right">Seraphina Windwhisper</h5>
-                <div class="px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p>Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel. </p>
+              <div id="message-bubble" class="flex flex-col items-end flex-1 mx-3">
+                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
+                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
+                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet.</p>
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
@@ -87,10 +103,10 @@
               <div id="avatar-l" class="w-8">
                 <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
               </div>
-              <div id="message-bubble" class="flex-1 mx-3">
+              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
                 <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p>Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel. </p>
+                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
+                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.</p>
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
@@ -102,10 +118,10 @@
               <div id="avatar-l" class="w-8">
                 <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
               </div>
-              <div id="message-bubble" class="flex-1 mx-3">
+              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
                 <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p>Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel. </p>
+                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
+                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. </p>
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
@@ -117,10 +133,10 @@
               <div id="avatar-l" class="w-8">
                 <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
               </div>
-              <div id="message-bubble" class="flex-1 mx-3">
+              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
                 <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p>Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel. </p>
+                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
+                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.</p>
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
@@ -132,10 +148,10 @@
               <div id="avatar-l" class="w-8">
                 <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
               </div>
-              <div id="message-bubble" class="flex-1 mx-3">
+              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
                 <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p>Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel. </p>
+                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
+                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.</p>
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
@@ -149,7 +165,7 @@
         <div 
           id="chat-input" 
           :class="store.sidemenuStatus ? 'md:w-[calc(100%-var(--menu))] xl:w-[calc(100%-var(--info)-var(--menu))]' : 'md:w-full xl:w-[calc(100%-var(--info))]'"
-          class="fixed bottom-0 h-[--chat] px-7 w-full duration-300 bg-theme-verylight focus-within:shadow-line">
+          class="fixed bottom-0 h-[--chat] px-7 w-full duration-300 bg-theme-verylight shadow-line focus-within:shadow-line-active">
           <div id="input-frame" class="flex items-center h-full">
             <img src="@/src/assets/icon/magic_spark.svg" class="w-6" alt="">
             <div class="h-5 border-r border-r-theme-gray mx-7"></div>

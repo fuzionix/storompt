@@ -171,10 +171,10 @@
             <div class="h-5 border-r border-r-theme-gray mx-7"></div>
             <form action="/" method="" class="flex flex-1">
               <input type="text" class="flex-1 pr-7 text-base bg-transparent min-w-0 focus:outline-0" placeholder="Type Something ..." value="">
-              <button type="submit">
+              <button type="submit" class="hover:opacity-75">
                 <img src="@/src/assets/icon/voice.svg" class="w-6" alt="">
               </button>
-              <button type="submit" class="ml-4">
+              <button type="submit" class="ml-4 hover:opacity-75">
                 <img src="@/src/assets/icon/send.svg" class="w-8" alt="">
               </button>
             </form>

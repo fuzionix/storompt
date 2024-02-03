@@ -36,129 +36,35 @@
       </header>
       <section id="chat" class="w-full h-[calc(100%-var(--chat))] overflow-hidden -mt-[--header]">
         <div id="chat-message" class="h-full overflow-y-scroll">
-          <div id="chat-message-container" class="flex flex-col items-center px-3 py-7 pt-[calc(1rem+var(--header))] 
-          sm:px-7 [&>*:last-child]:pb-20">
+          <div 
+            id="chat-message-container"
+            class="flex flex-col items-center px-3 py-7 pt-[calc(1rem+var(--header))] sm:px-7 [&>*:last-child]:pb-20"
+          >
             <!-- Display Chat Block -->
-            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
+            <div 
+              id="message-block" 
+              v-for="(chat, index) in chatHistory"  
+              class="flex items-end w-full max-w-[768px] py-4"
+            >
               <div id="avatar-l" class="w-8">
-                <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
+                <img v-if="!chat.user" src="@/src/assets/avatar/avatar_ai_2.svg" alt="">
               </div>
-              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
-                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
+              <div 
+                id="message-bubble" 
+                class="flex flex-col flex-1 mx-3"
+                :class="chat.user ? 'items-end' : 'items-start'"
+              >
+                <h5 class="mb-2 text-sm font-semibold">{{ chat.name }}</h5>
                 <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p class="w-fit">Et penatibus ut mauris tellus pharetra.</p>
+                  <p class="w-fit">{{ chat.message }}</p>
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
-                <img src="" class="" alt="">
+                <img v-if="chat.user" src="@/src/assets/avatar/avatar_me.svg" alt="">
               </div>
             </div>
 
-            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
-              <div id="avatar-l" class="w-8">
-                <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
-              </div>
-              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
-                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.</p>
-                </div>
-              </div>
-              <div id="avatar-r" class="w-8">
-                <img src="" class="" alt="">
-              </div>
-            </div>
-
-            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
-              <div id="avatar-l" class="w-8">
-                <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
-              </div>
-              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
-                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.</p>
-                </div>
-              </div>
-              <div id="avatar-r" class="w-8">
-                <img src="" class="" alt="">
-              </div>
-            </div>
-
-            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
-              <div id="avatar-l" class="w-8">
-                <img src="" class="" alt="">
-              </div>
-              <div id="message-bubble" class="flex flex-col items-end flex-1 mx-3">
-                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet.</p>
-                </div>
-              </div>
-              <div id="avatar-r" class="w-8">
-                <img src="@/src/assets/avatar/avatar_me.svg" class="" alt="">
-              </div>
-            </div>
-
-            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
-              <div id="avatar-l" class="w-8">
-                <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
-              </div>
-              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
-                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.</p>
-                </div>
-              </div>
-              <div id="avatar-r" class="w-8">
-                <img src="" class="" alt="">
-              </div>
-            </div>
-
-            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
-              <div id="avatar-l" class="w-8">
-                <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
-              </div>
-              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
-                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. </p>
-                </div>
-              </div>
-              <div id="avatar-r" class="w-8">
-                <img src="" class="" alt="">
-              </div>
-            </div>
-
-            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
-              <div id="avatar-l" class="w-8">
-                <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
-              </div>
-              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
-                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.</p>
-                </div>
-              </div>
-              <div id="avatar-r" class="w-8">
-                <img src="" class="" alt="">
-              </div>
-            </div>
-
-            <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
-              <div id="avatar-l" class="w-8">
-                <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
-              </div>
-              <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
-                <h5 class="mb-2 text-sm font-semibold">Seraphina Windwhisper</h5>
-                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-                  <p class="w-fit">Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.</p>
-                </div>
-              </div>
-              <div id="avatar-r" class="w-8">
-                <img src="" class="" alt="">
-              </div>
-            </div>
-
+            
             <!-- Display Chat Block -->
           </div>
         </div>
@@ -169,7 +75,7 @@
           <div id="input-frame" class="flex items-center h-full">
             <img src="@/src/assets/icon/magic_spark.svg" class="w-6" alt="">
             <div class="h-5 border-r border-r-theme-gray mx-7"></div>
-            <form action="/" method="" class="flex flex-1">
+            <form action="/" method="" @submit.prevent="console.log('click submit')" class="flex flex-1">
               <input type="text" class="flex-1 pr-7 text-base bg-transparent min-w-0 focus:outline-0" placeholder="Type Something ..." value="">
               <button type="submit" class="hover:opacity-75">
                 <img src="@/src/assets/icon/voice.svg" class="w-6" alt="">
@@ -206,7 +112,34 @@ export default {
         store: useStatusStore(),
         windowWidth: ref(window.innerWidth),
         minwindowWidth: 640,
-        fillIcon: false
+        fillIcon: false,
+        chatHistory: [
+          {
+            name: 'Seraphina Windwhisper',
+            message: 'Et penatibus ut mauris tellus pharetra.',
+            user: false
+          },
+          {
+            name: 'Seraphina Windwhisper',
+            message: 'Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.',
+            user: false
+          },
+          {
+            name: 'You',
+            message: 'Et penatibus ut mauris tellus pharetra aliquet.',
+            user: true
+          },
+          {
+            name: 'Seraphina Windwhisper',
+            message: 'Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.',
+            user: false
+          },
+          {
+            name: 'Seraphina Windwhisper',
+            message: 'Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. ',
+            user: false
+          },
+        ]
       }
     },
     computed: {

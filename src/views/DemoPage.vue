@@ -44,6 +44,7 @@
             <div 
               id="message-block" 
               v-for="(chat, index) in chatHistory"  
+              :key="index"
               class="flex items-end w-full max-w-[768px] py-4"
             >
               <div id="avatar-l" class="w-8">
@@ -75,12 +76,21 @@
           <div id="input-frame" class="flex items-center h-full">
             <img src="@/src/assets/icon/magic_spark.svg" class="w-6" alt="">
             <div class="h-5 border-r border-r-theme-gray mx-7"></div>
-            <form action="/" method="" @submit.prevent="console.log('click submit')" class="flex flex-1">
-              <input type="text" class="flex-1 pr-7 text-base bg-transparent min-w-0 focus:outline-0" placeholder="Type Something ..." value="">
+            <form action="/" method="" @submit.prevent="sendMessage()" class="flex flex-1">
+              <input 
+                type="text" 
+                v-model="userTextInput"
+                class="flex-1 pr-7 text-base bg-transparent min-w-0 focus:outline-0" 
+                placeholder="Type Something ..." 
+                value=""
+              >
               <button type="submit" class="hover:opacity-75">
                 <img src="@/src/assets/icon/voice.svg" class="w-6" alt="">
               </button>
-              <button type="submit" class="ml-4 hover:opacity-75">
+              <button 
+                type="submit" 
+                class="ml-4 hover:opacity-75" 
+              >
                 <img src="@/src/assets/icon/send.svg" class="w-8" alt="">
               </button>
             </form>
@@ -139,7 +149,8 @@ export default {
             message: 'Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. ',
             user: false
           },
-        ]
+        ],
+        userTextInput: ''
       }
     },
     computed: {
@@ -171,6 +182,13 @@ export default {
       },
       changeIcon(status) {
         this.fillIcon = status
+      },
+      sendMessage() {
+        this.chatHistory.push({
+          name: 'Seraphina Windwhisper',
+          message: this.userTextInput,
+          user: true
+        })
       }
     }
 }

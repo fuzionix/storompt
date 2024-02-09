@@ -79,7 +79,7 @@
             <form action="/" method="" @submit.prevent="sendMessage()" class="flex flex-1">
               <input 
                 type="text" 
-                v-model="userTextInput"
+                v-model.trim="userTextInput"
                 class="flex-1 pr-7 text-base bg-transparent min-w-0 focus:outline-0" 
                 placeholder="Type Something ..." 
                 value=""
@@ -184,11 +184,15 @@ export default {
         this.fillIcon = status
       },
       sendMessage() {
-        this.chatHistory.push({
-          name: 'Seraphina Windwhisper',
-          message: this.userTextInput,
-          user: true
-        })
+        if (this.userTextInput) {
+          this.chatHistory.push({
+            name: 'Seraphina Windwhisper',
+            message: this.userTextInput,
+            user: true
+          })
+          this.userTextInput = ''
+        }
+        
       }
     }
 }

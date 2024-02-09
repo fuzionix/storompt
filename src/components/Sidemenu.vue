@@ -35,7 +35,14 @@
       </div>
     </section>
     <section id="journey" class="flex flex-col">
-      <h5 class="px-7 pt-4 text-sm text-theme-darklight font-semibold">YOUR JOURNEY</h5>
+      <div class="flex justify-between items-center pt-4 ">
+        <h5 class="pl-7 text-sm text-theme-darklight font-semibold">YOUR JOURNEY</h5>
+        <button class="group flex items-center pr-7 opacity-90 hover:opacity-100">
+          <img src="@/src/assets/icon/plus.svg" class="w-5 mr-1.5 group-hover:scale-110 duration-200" alt="add button">
+          <span class="mt-[0.125rem] text-xs font-semibold ">NEW</span>
+        </button>
+      </div>
+      
       <div class="my-4 border-y border-y-theme-gridlight">
         <button class="group relative flex flex-col justify-center w-full h-20 px-10 border-b border-b-theme-gridlight first:bg-theme-pale hover:bg-theme-light last:border-0 
         [&>*]:max-w-[200px] [&>*]:whitespace-nowrap [&>*]:overflow-hidden [&>*]:text-ellipsis">

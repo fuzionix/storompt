@@ -45,7 +45,7 @@
               id="message-block" 
               v-for="(chat, index) in chatHistory"  
               :key="index"
-              class="flex items-end w-full max-w-[768px] py-4"
+              class="flex items-end w-full max-w-[768px] py-4 animate-bubble-fade-in"
             >
               <div id="avatar-l" class="w-8">
                 <img v-if="!chat.user" src="@/src/assets/avatar/avatar_ai_2.svg" alt="">

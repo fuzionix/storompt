@@ -124,12 +124,17 @@ module.exports = {
           from: { height: 'var(--radix-collapsible-content-height)' },
           to: { height: 0 },
         },
+        "bubble-fade-in": {
+          from: { transform: 'translateY(10px)', opacity: .5 },
+          to: { transform: 'translateY(0px)', opacity: 1 }
+        }
       },
       animation: {
         "accordion-down": "accordion-down 0.2s ease-out",
         "accordion-up": "accordion-up 0.2s ease-out",
         "collapsible-down": "collapsible-down 0.2s ease-in-out",
         "collapsible-up": "collapsible-up 0.2s ease-in-out",
+        "bubble-fade-in": "bubble-fade-in 0.2s ease-in-out"
       },
     },
   },

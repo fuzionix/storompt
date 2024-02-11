@@ -38,6 +38,7 @@
         <div id="chat-message" class="h-full overflow-y-scroll">
           <div 
             id="chat-message-container"
+            ref="chatMessageBox"
             class="flex flex-col items-center px-3 py-7 pt-[calc(1rem+var(--header))] sm:px-7 [&>*:last-child]:pb-20"
           >
             <!-- Display Chat Block -->
@@ -191,6 +192,13 @@ export default {
             user: true
           })
           this.userTextInput = ''
+          this.$nextTick(() => {
+            this.$refs.chatMessageBox.scrollIntoView({ 
+              behavior: "smooth", 
+              block: "end", 
+              inline: "nearest" 
+            })
+          })
         }
         
       }

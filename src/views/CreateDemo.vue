@@ -8,11 +8,11 @@
           <div class="flex mt-8 ml-2">
             <cn-button 
               @click="$router.push('/demo/1')"
-              class="relative flex-1 border-x-theme-gridlight border mr-6 before:duration-200 before:content-[url('./src/assets/icon/game.svg')] 
+              class="relative flex-1 h-[50px] border-x-theme-gridlight border mr-6 before:duration-200 before:content-[url('./src/assets/icon/game.svg')] 
               before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125">Randomly</cn-button>
             <cn-button 
               @click="$router.push('/demo/2')"
-              class="relative flex-2 border-x-theme-gridlight border mr-0 before:duration-200 before:content-[url('./src/assets/icon/filter.svg')] 
+              class="relative flex-1 h-[50px] border-x-theme-gridlight border mr-0 before:duration-200 before:content-[url('./src/assets/icon/filter.svg')] max-w-[7.5rem] 
               before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125" variant="secondary">Custom</cn-button>
           </div>
         </div>

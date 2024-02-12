@@ -167,6 +167,10 @@ export default {
     unmounted() {
       window.removeEventListener('resize', this.detectWindowSize);
     },
+    beforeRouteLeave(to, from) {
+      const answer = window.confirm('Are you sure you want to leave? Confirm to exit')
+      if (!answer) return false
+    },
     methods: {
       openSidemenu() {
         this.store.sidemenuStatus = true

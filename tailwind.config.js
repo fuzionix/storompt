@@ -127,6 +127,14 @@ module.exports = {
         "bubble-fade-in": {
           from: { transform: 'translateY(10px)', opacity: .5 },
           to: { transform: 'translateY(0px)', opacity: 1 }
+        },
+        "shift-up": {
+          from: { transform: 'translateY(50px)' },
+          to: { transform: 'translateY(0px)' }
+        },
+        "shift-down": {
+          from: { transform: 'translateY(-50px)' },
+          to: { transform: 'translateY(0px)' }
         }
       },
       animation: {
@@ -134,7 +142,9 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "collapsible-down": "collapsible-down 0.2s ease-in-out",
         "collapsible-up": "collapsible-up 0.2s ease-in-out",
-        "bubble-fade-in": "bubble-fade-in 0.2s ease-in-out"
+        "bubble-fade-in": "bubble-fade-in 0.2s ease-in-out",
+        "shift-up": "shift-up 5s ease-in-out",
+        "shift-down": "shift-down 5s ease-in-out"
       },
     },
   },

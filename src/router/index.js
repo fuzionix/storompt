@@ -5,6 +5,7 @@ const routes = [
     path: '/',
     name: 'home',
     component: () => import('../views/Homepage.vue'),
+    redirect:'/demo',
     alias: '/home'
   },
   {

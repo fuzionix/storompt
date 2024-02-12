@@ -1,14 +1,31 @@
 <template>
-    <section id="create-demo" class="flex flex-col items-center justify-center min-h-[100vh]">
-      <div id="create-demo-container" class="flex flex-col items-center max-w-[500px] p-7 pt-[calc(1rem+var(--header))] 
-        sm:px-7">
-        <div>
+    <section id="create-demo" class="flex items-center justify-center h-[100vh] overflow-hidden">
+      <div id="create-demo-container" class="flex flex-col items-center flex-1 w-full p-7 pt-[calc(1rem+var(--header))] 
+        sm:px-20">
+        <div class="max-w-[500px]">
           <h3 class="text-[2rem] font-semibold">Create Story</h3>
-          <p class="text-sm mt-2">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. </p>
-          <div class="flex mt-4">
-            <cn-button class="mr-4">Randomly</cn-button>
-            <cn-button variant="secondary">Custom</cn-button>
+          <p class="text-sm mt-2 mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. </p>
+          <div class="flex mt-8 ml-2">
+            <cn-button 
+              @click="$router.push('/demo/1')"
+              class="relative flex-1 border-x-theme-gridlight border mr-6 before:duration-200 before:content-[url('./src/assets/icon/game.svg')] 
+              before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125">Randomly</cn-button>
+            <cn-button 
+              @click="$router.push('/demo/2')"
+              class="relative flex-2 border-x-theme-gridlight border mr-0 before:duration-200 before:content-[url('./src/assets/icon/filter.svg')] 
+              before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125" variant="secondary">Custom</cn-button>
           </div>
+        </div>
+      </div>
+      <div id="display-area" class="flex h-full md:p-7 w-0 md:w-[384px] xl:w-[768px]">
+        <div id="display-col-1" class="hidden flex-1 mt-[-10rem] animate-shift-up md:block">
+          <img src="@/src/assets/img/create_display_3.png" class="w-full p-3 object-cover" alt="">
+          <img src="@/src/assets/img/create_display_1.png" class="w-full p-3 object-cover" alt="">
+          <img src="@/src/assets/img/create_display_5.png" class="w-full p-3 object-cover" alt="">
+        </div>
+        <div id="display-col-2" class="hidden flex-1 mt-[+10rem] animate-shift-down xl:block">
+          <img src="@/src/assets/img/create_display_2.png" class="w-full p-3 object-cover" alt="">
+          <img src="@/src/assets/img/create_display_4.png" class="w-full p-3 object-cover" alt="">
         </div>
       </div>
     </section>

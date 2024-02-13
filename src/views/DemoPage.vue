@@ -216,6 +216,12 @@ export default {
             })
 
             this.scrollToBottom()
+          }).catch((error) => {
+            this.chatHistory.push({
+              name: 'Error System',
+              message: `Someone tell him that the server side have some issues [${error}]`,
+              user: false
+            })
           })
 
 

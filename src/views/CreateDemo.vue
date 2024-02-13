@@ -3,16 +3,16 @@
       <div id="create-demo-container" class="flex flex-col items-center flex-1 w-full p-7 pt-[calc(1rem+var(--header))] 
         sm:px-20">
         <div class="max-w-[500px]">
-          <h3 class="text-[2rem] font-semibold">Create Story</h3>
+          <h3 class="text-[2rem] sm:text-[3rem] font-semibold">Create Story</h3>
           <p class="text-sm mt-2 mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. </p>
           <div class="flex mt-8 ml-2">
             <cn-button 
               @click="$router.push('/demo/1')"
-              class="relative flex-1 h-[50px] border-x-theme-gridlight border mr-6 before:duration-200 before:content-[url('./src/assets/icon/game.svg')] 
+              class="relative flex-1 h-[50px] mr-6 before:duration-200 before:content-[url('./src/assets/icon/game.svg')] 
               before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125">Randomly</cn-button>
             <cn-button 
               @click="$router.push('/demo/2')"
-              class="relative flex-1 h-[50px] border-x-theme-gridlight border mr-0 before:duration-200 before:content-[url('./src/assets/icon/filter.svg')] max-w-[7.5rem] 
+              class="relative flex-1 h-[50px] mr-0 before:duration-200 before:content-[url('./src/assets/icon/filter.svg')] max-w-[7.5rem] 
               before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125" variant="secondary">Custom</cn-button>
           </div>
         </div>

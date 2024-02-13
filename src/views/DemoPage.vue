@@ -110,6 +110,8 @@ import InfoPanel from '@/src/components/InfoPanel.vue'
 import { useStatusStore } from '@/src/store/useStatusStore'
 import { ref } from 'vue'
 
+import axios from 'axios'
+
 export default {
     name: 'DemoPage',
     components: {
@@ -190,21 +192,47 @@ export default {
       },
       sendMessage() {
         if (this.userTextInput) {
+          // insert message into chat history. display new chat bubble automatically
           this.chatHistory.push({
             name: 'Seraphina Windwhisper',
             message: this.userTextInput,
             user: true
           })
-          this.userTextInput = ''
-          this.$nextTick(() => {
-            this.$refs.chatMessageBox.scrollIntoView({ 
-              behavior: "smooth", 
-              block: "end", 
-              inline: "nearest" 
+
+          // send user input to server
+          axios({
+            method: 'post',
+            url: 'http://127.0.0.1:8000/chat/',
+            data: {
+              userTextInput: this.userTextInput
+            }
+          }).then((res) => {
+            this.data = res.data
+            console.log(this.data['msg'])
+            this.chatHistory.push({
+              name: 'Bot',
+              message: this.data['msg'],
+              user: false
             })
+
+            this.scrollToBottom()
           })
+
+
+          this.userTextInput = ''
+
+          this.scrollToBottom()
         }
         
+      },
+      scrollToBottom() {
+        this.$nextTick(() => {
+          this.$refs.chatMessageBox.scrollIntoView({ 
+            behavior: "smooth", 
+            block: "end", 
+            inline: "nearest" 
+          })
+        })
       }
     }
 }

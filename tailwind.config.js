@@ -105,7 +105,8 @@ module.exports = {
       boxShadow: {
         'line': '0 -2px 0 #e4e7da',
         'line-active': '0 -2px 0 #c3f20c',
-        'edge': '0 0 0 1px #c7cab9'
+        'edge': '0 0 0 1px #c7cab9',
+        'edge-theme': '0 0 0 1px #bbde3c'
       },
       keyframes: {
         "accordion-down": {

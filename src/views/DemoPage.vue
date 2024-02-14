@@ -54,10 +54,18 @@
               <div 
                 id="message-bubble" 
                 class="flex flex-col flex-1 mx-3"
-                :class="chat.user ? 'items-end' : 'items-start'"
+                :class="[
+                  chat.user ? 'items-end' : 'items-start',
+                ]"
               >
                 <h5 class="mb-2 text-sm font-semibold">{{ chat.name }}</h5>
-                <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
+                <div 
+                  class="w-fit px-4 py-3 text-sm rounded-lg"
+                  :class="[
+                    chat.user ? 'bg-theme-pale shadow-edge-theme' : 'bg-theme-light shadow-edge',
+                    chat.danger ? 'bg-danger text-white shadow-none' : ''
+                  ]"
+                >
                   <p class="w-fit">{{ chat.message }}</p>
                 </div>
               </div>
@@ -127,6 +135,7 @@ export default {
         windowWidth: ref(window.innerWidth),
         minwindowWidth: 640,
         fillIcon: false,
+        isActive: false,
         chatHistory: [
           {
             name: 'Seraphina Windwhisper',
@@ -192,7 +201,9 @@ export default {
         this.fillIcon = status
       },
       sendMessage() {
-        if (this.userTextInput) {
+        if (this.userTextInput && !this.isActive) {
+          this.isActive = true
+
           // insert message into chat history. display new chat bubble automatically
           this.chatHistory.push({
             name: 'Seraphina Windwhisper',
@@ -219,15 +230,15 @@ export default {
             this.chatHistory.push({
               name: 'Error System',
               message: `Someone tell him that the server side have some issues [${error}]`,
-              user: false
+              user: false,
+              danger: true
             })
           }).finally(() => {
             this.scrollToBottom()
+            this.isActive = false
           })
 
-
           this.userTextInput = ''
-
           this.scrollToBottom()
         }
         

@@ -3,8 +3,13 @@
       <div id="create-demo-container" class="flex flex-col items-center flex-1 w-full p-7 pt-[calc(1rem+var(--header))] 
         sm:px-20">
         <div class="max-w-[500px]">
-          <h3 class="text-[2rem] sm:text-[3rem] font-semibold">Create Story</h3>
-          <p class="text-sm mt-2 mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. </p>
+          <h4 class="mb-2 scroll-m-20 text-xl font-semibold tracking-tight">
+            Make story
+          </h4>
+          <h1 class="text-[2rem] sm:text-[3rem] scroll-m-20 text-4xl font-extrabold tracking-tight lg:text-5xl">
+            Unleash Your Imagination
+          </h1>
+          <p class="text-sm mt-6 mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. </p>
           <div class="flex mt-8 ml-2">
             <cn-button 
               @click="$router.push('/demo/1')"

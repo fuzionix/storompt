@@ -84,6 +84,7 @@
                 class="flex-1 pr-7 text-base bg-transparent min-w-0 focus:outline-0" 
                 placeholder="Type Something ..." 
                 value=""
+                enter-key-hint="send"
               >
               <button type="submit" class="hover:opacity-75">
                 <img src="@/src/assets/icon/voice.svg" class="w-6" alt="">
@@ -214,14 +215,14 @@ export default {
               message: this.data['msg'],
               user: false
             })
-
-            this.scrollToBottom()
           }).catch((error) => {
             this.chatHistory.push({
               name: 'Error System',
               message: `Someone tell him that the server side have some issues [${error}]`,
               user: false
             })
+          }).finally(() => {
+            this.scrollToBottom()
           })
 
 

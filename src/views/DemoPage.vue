@@ -5,7 +5,7 @@
       :class="store.sidemenuStatus ? '' : 'md:!pl-0'"
       class="w-full h-[100dvh] duration-300 md:pl-[--menu] xl:pr-[--info]"
     >
-      <header class="relative flex items-center justify-between h-[--header] border-b bg-[#0000] p-7 backdrop-blur">
+      <header class="relative flex items-center justify-between h-[--header] border-b bg-[#0000] p-7 backdrop-blur z-10">
         <img 
           v-if="!fillIcon"
           @mouseover="changeIcon(true)"
@@ -60,12 +60,20 @@
               >
                 <h5 class="mb-2 text-sm font-semibold">{{ chat.name }}</h5>
                 <div 
-                  class="w-fit px-4 py-3 text-sm rounded-lg"
+                  class="relative flex min-h-[2.75rem] min-w-[2.75rem] w-fit px-4 py-3 text-sm rounded-lg"
                   :class="[
                     chat.user ? 'bg-theme-pale shadow-edge-theme' : 'bg-theme-light shadow-edge',
-                    chat.danger ? 'bg-danger text-white shadow-none' : ''
+                    chat.danger ? '!bg-danger text-white shadow-none' : ''
                   ]"
                 >
+                  <img 
+                    v-if="chatLoading"
+                    src="@/src/assets/icon/loader.svg" 
+                    class="absolute w-6"
+                    :class="index + 1 === chatHistory.length ? 'inline' : 'hidden'" 
+                    alt="" 
+                    width="24"
+                  >
                   <p class="w-fit">{{ chat.message }}</p>
                 </div>
               </div>
@@ -136,6 +144,7 @@ export default {
         minwindowWidth: 640,
         fillIcon: false,
         isActive: false,
+        chatLoading: false,
         chatHistory: [
           {
             name: 'Seraphina Windwhisper',
@@ -206,10 +215,18 @@ export default {
 
           // insert message into chat history. display new chat bubble automatically
           this.chatHistory.push({
-            name: 'Seraphina Windwhisper',
+            name: 'You',
             message: this.userTextInput,
             user: true
           })
+
+          this.chatHistory.push({
+            name: '',
+            message: '',
+            user: false
+          })
+
+          this.chatLoading = true
 
           // send user input to server
           axios({
@@ -220,14 +237,13 @@ export default {
             }
           }).then((res) => {
             this.data = res.data
-            console.log(this.data['msg'])
-            this.chatHistory.push({
+            Object.assign(this.chatHistory.slice(-1)[0], {
               name: 'Bot',
               message: this.data['msg'],
               user: false
             })
           }).catch((error) => {
-            this.chatHistory.push({
+            Object.assign(this.chatHistory.slice(-1)[0], {
               name: 'Error System',
               message: `Someone tell him that the server side have some issues [${error}]`,
               user: false,
@@ -236,6 +252,7 @@ export default {
           }).finally(() => {
             this.scrollToBottom()
             this.isActive = false
+            this.chatLoading = false
           })
 
           this.userTextInput = ''

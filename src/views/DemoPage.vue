@@ -5,7 +5,7 @@
       :class="store.sidemenuStatus ? '' : 'md:!pl-0'"
       class="w-full h-[100dvh] duration-300 md:pl-[--menu] xl:pr-[--info]"
     >
-      <header class="relative flex items-center justify-between h-[--header] border-b bg-[#0000] p-7 backdrop-blur z-10">
+      <header class="relative flex items-center justify-between h-[--header] border-b bg-[#0000] p-7 backdrop-blur z-20">
         <img 
           v-if="!fillIcon"
           @mouseover="changeIcon(true)"

@@ -64,7 +64,8 @@
               type: 'random'
             }
           }).then((res) => {
-            console.log(res)
+            this.data = res.data
+            this.$router.push(`/demo/${this.data['id']}`)
           }).catch((error) => {
             console.log(error)
           })

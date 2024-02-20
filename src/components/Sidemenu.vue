@@ -37,9 +37,9 @@
     <section id="journey" class="flex flex-col">
       <div class="flex justify-between items-center pt-4 ">
         <h5 class="pl-7 text-sm text-theme-darklight font-semibold">YOUR JOURNEY</h5>
-        <button class="group flex items-center pr-7 opacity-90 hover:opacity-100">
+        <button @click="$router.push('/demo')" class="group flex items-center pr-7 opacity-90 hover:opacity-100">
           <img src="@/src/assets/icon/plus.svg" class="w-5 mr-1.5 group-hover:scale-110 duration-200" alt="add button">
-          <span class="mt-[0.125rem] text-xs font-semibold ">NEW</span>
+          <span class="mt-[0.125rem] text-xs font-semibold">NEW</span>
         </button>
       </div>
       

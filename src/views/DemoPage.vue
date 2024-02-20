@@ -24,8 +24,8 @@
           alt="open menu"
         >
         <div class="text-center px-7 mt-[-.25rem]">
-          <h3 class="font-bold text-lg leading-normal">Forgotten City</h3>
-          <p class="text-xs opacity-70 max-w-[200px] leading-relaxed whitespace-nowrap overflow-hidden text-ellipsis md:max-w-[300px]">Dive into an entire captivating story just by interacting</p>
+          <h3 class="font-bold text-lg leading-normal">{{ chatItem['title'] }}</h3>
+          <p class="text-xs opacity-70 max-w-[200px] leading-relaxed whitespace-nowrap overflow-hidden text-ellipsis md:max-w-[300px]">{{ chatItem['title_description'] }}</p>
         </div>
         <img 
           @click="openInfomenu"
@@ -144,6 +144,10 @@ export default {
         minwindowWidth: 640,
         fillIcon: false,
         isActive: false,
+        chatItem: {
+          title: '',
+          title_description: ''
+        },
         chatLoading: false,
         chatHistory: [
           {
@@ -181,6 +185,21 @@ export default {
       if (this.windowWidth <= this.minwindowWidth) {
         this.store.sidemenuStatus = false
       }
+
+      axios({
+        method: 'get',
+        url: `http://127.0.0.1:8000/chat/get-item/${this.$route.params.demoId}`,
+        data: {
+        }
+      }).then((res) => {
+        this.data = res.data
+        this.chatItem['title'] = this.data['title']
+        this.chatItem['title_description'] = this.data['title_description']
+      }).catch((error) => {
+        console.error('Error: ', error)
+      }).finally(() => {
+        
+      })
     },
     mounted() {
       window.addEventListener('resize', this.detectWindowSize);
@@ -231,7 +250,7 @@ export default {
           // send user input to server
           axios({
             method: 'post',
-            url: 'http://127.0.0.1:8000/chat/',
+            url: `http://127.0.0.1:8000/chat/${this.$route.params.demoId}`,
             data: {
               userTextInput: this.userTextInput
             }

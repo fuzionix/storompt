@@ -124,6 +124,18 @@
 import Sidemenu from '@/src/components/Sidemenu.vue'
 import InfoPanel from '@/src/components/InfoPanel.vue'
 
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from '@/src/components_shadcn/ui/alert-dialog'
+
 import { useStatusStore } from '@/src/store/useStatusStore'
 import { ref } from 'vue'
 
@@ -134,6 +146,15 @@ export default {
     components: {
       'sidemenu': Sidemenu,
       'info-panel': InfoPanel,
+      AlertDialog,
+      AlertDialogAction,
+      AlertDialogCancel,
+      AlertDialogContent,
+      AlertDialogDescription,
+      AlertDialogFooter,
+      AlertDialogHeader,
+      AlertDialogTitle,
+      AlertDialogTrigger,
     },
     props: [
     ],

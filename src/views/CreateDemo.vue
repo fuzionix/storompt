@@ -10,15 +10,22 @@
             Unleash Your Imagination
           </h1>
           <p class="text-sm mt-6 mb-20">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. </p>
+          <Alert v-if="createError" class="mb-8" variant="destructive">
+            <AlertCircle class="w-4 h-4" />
+            <AlertTitle>Failed To Create!</AlertTitle>
+            <AlertDescription>
+              {{ createErrorMessage }}
+            </AlertDescription>
+          </Alert>
           <div class="flex mt-8 ml-2">
-            <cn-button 
+            <Button 
               @click="createItem()"
               class="relative flex-1 h-[50px] mr-6 before:duration-200 before:content-[url('./src/assets/icon/game.svg')] 
-              before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125">Randomly</cn-button>
-            <cn-button 
+              before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125">Randomly</Button>
+            <Button 
               @click="$router.push('/demo/137e1e47-2123-42d5-bbd7-f1199e7f3f70')"
               class="relative flex-1 h-[50px] mr-0 before:duration-200 before:content-[url('./src/assets/icon/filter.svg')] max-w-[7.5rem] 
-              before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125" variant="secondary">Custom</cn-button>
+              before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125" variant="secondary">Custom</Button>
           </div>
         </div>
       </div>
@@ -37,20 +44,27 @@
   </template>
   
   <script>
+  import { AlertCircle } from 'lucide-vue-next'
   import { Button } from '@/src/components_shadcn/ui/button'
+  import { Alert, AlertDescription, AlertTitle } from '@/src/components_shadcn/ui/alert'
 
   import axios from 'axios'
 
   export default {
       name: 'CreateDemo',
       components: {
-        'cn-button': Button
+        Button,
+        Alert,
+        AlertDescription,
+        AlertTitle,
+        AlertCircle
       },
       props: [
       ],
       data() {
         return {
-  
+          createError: false,
+          createErrorMessage: ''
         }
       },
       computed: {
@@ -67,7 +81,8 @@
             this.data = res.data
             this.$router.push(`/demo/${this.data['id']}`)
           }).catch((error) => {
-            console.log(error)
+            this.createError = true
+            this.createErrorMessage = `${error['name']} - ${error['message']}. Please try again later.`
           })
         }
       }

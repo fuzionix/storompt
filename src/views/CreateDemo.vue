@@ -71,6 +71,7 @@
       },
       methods: {
         createItem() {
+          this.createError = false,
           axios({
             method: 'post',
             url: 'http://127.0.0.1:8000/chat/create-item',
@@ -82,7 +83,7 @@
             this.$router.push(`/demo/${this.data['id']}`)
           }).catch((error) => {
             this.createError = true
-            this.createErrorMessage = `${error['name']} - ${error['message']}. Please try again later.`
+            this.createErrorMessage = `Please try again later. [${error['name']} - ${error['message']}]. `
           })
         }
       }

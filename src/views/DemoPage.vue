@@ -118,6 +118,22 @@
     </main>
     <info-panel />
   </section>
+
+  <AlertDialog :open="isLeaving">
+    <AlertDialogContent class="min-h-[150px]">
+      <AlertDialogHeader>
+        <AlertDialogTitle>Are you sure you want to leave?</AlertDialogTitle>
+        <AlertDialogDescription>
+          This action cannot be undone. This will permanently delete your
+          story and remove your data from our servers.
+        </AlertDialogDescription>
+      </AlertDialogHeader>
+      <AlertDialogFooter>
+        <AlertDialogCancel>Cancel</AlertDialogCancel>
+        <AlertDialogAction>Confirm</AlertDialogAction>
+      </AlertDialogFooter>
+    </AlertDialogContent>
+  </AlertDialog>
 </template>
 
 <script>
@@ -197,7 +213,8 @@ export default {
             user: false
           },
         ],
-        userTextInput: ''
+        userTextInput: '',
+        isLeaving: false, // TODO
       }
     },
     computed: {
@@ -229,6 +246,7 @@ export default {
       window.removeEventListener('resize', this.detectWindowSize);
     },
     beforeRouteLeave(to, from) {
+      this.isLeaving = true
       const answer = window.confirm('Are you sure you want to leave? Confirm to exit')
       if (!answer) return false
     },

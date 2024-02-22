@@ -29,8 +29,8 @@
           </div>
         </div>
       </div>
-      <div id="display-area" class="flex h-full md:p-7 w-0 md:w-[384px] xl:w-[768px]">
-        123
+      <div id="display-area" class="flex h-full bg-theme-gridlight md:p-7 w-0 md:w-[384px] xl:w-[768px]">
+        
       </div>
     </section>
   </template>

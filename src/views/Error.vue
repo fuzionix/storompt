@@ -9,7 +9,7 @@
         </div>
         <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
           <h5 class="mb-2 text-sm font-semibold">System Bot</h5>
-          <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
+          <div class="w-fit px-4 py-3 text-sm !bg-danger text-white shadow-none rounded-lg">
             <p class="w-fit">Oops! Error 404 - Page not found.</p>
           </div>
         </div>

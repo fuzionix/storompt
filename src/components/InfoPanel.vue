@@ -19,23 +19,21 @@
         <img src="@/src/assets/img/background_1.png" class="rounded-lg aspect-video object-cover object-center" alt="">
       </div>
       <div class="px-7">
-        <h2 class="font-medium text-xl">Forgotten City</h2>
-        <p class="pt-2 text-sm opacity-70">Lorem ipsum dolor sit amet consectetur adipiscing elit Ut et massa mi. Aliquam in hendrerit urna.</p>
+        <h2 class="font-medium text-xl">{{ chatItem['title'] }}</h2>
+        <p class="pt-2 text-sm opacity-70">{{ chatItem['title_description'] }}</p>
         <div class="flex my-7 py-7 border-y">
           <div class="flex-1 pr-2">
             <h5 class="pb-1 text-sm font-semibold text-theme-darklight">Genre</h5>
-            <p class="text-sm leading-relaxed">Fantasy</p>
+            <p class="text-sm leading-relaxed">{{ chatItem['genre'] }}</p>
           </div>
           <div class="flex-1 pr-2">
             <h5 class="pb-1 text-sm font-semibold text-theme-darklight">Classification</h5>
-            <p class="text-sm leading-relaxed">Experience</p>
+            <p class="text-sm leading-relaxed">{{ chatItem['classification'] }}</p>
           </div>
         </div>
         <div>
           <h5 class="pb-4 text-sm font-semibold text-theme-darklight">Background</h5>
-          <p class="text-sm leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat.</p>
-          <p class="text-sm leading-relaxed">Lorem ipsum dolor sit amet, consectetur adipiscing elit. Ut et massa mi. Aliquam in hendrerit urna. Pellentesque sit amet sapien fringilla, mattis ligula consectetur, ultrices mauris. Maecenas vitae mattis tellus. Nullam quis imperdiet augue. Vestibulum auctor ornare leo, non suscipit magna interdum eu. Curabitur pellentesque nibh nibh, at maximus ante fermentum sit amet. Pellentesque commodo lacus at sodales sodales. Quisque sagittis orci ut diam condimentum, vel euismod erat placerat.</p>
-        
+          <p class="text-sm leading-relaxed">{{ chatItem['background'] }}</p>        
         </div>
       </div>
     </section>
@@ -50,6 +48,7 @@ export default {
     components: {
     },
     props: [
+      'chatItem'
     ],
     data() {
       return {

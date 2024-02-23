@@ -33,12 +33,11 @@
         <div id="display-col-1" class="hidden flex-1 mt-[-10rem] animate-shift-up md:block">
           <img src="@/src/assets/img/create_display_3.png" class="w-full h-[50vh] p-3 object-cover" alt="">
           <img src="@/src/assets/img/create_display_1.png" class="w-full h-[50vh] p-3 object-cover" alt="">
-          <img src="@/src/assets/img/create_display_3.png" class="w-full h-[50vh] p-3 object-cover" alt="">
+          <img src="@/src/assets/img/create_display_5.png" class="w-full h-[50vh] p-3 object-cover" alt="">
         </div>
         <div id="display-col-2" class="hidden flex-1 mt-[+10rem] animate-shift-down xl:block">
           <img src="@/src/assets/img/create_display_2.png" class="w-full h-[50vh] p-3 object-cover" alt="">
           <img src="@/src/assets/img/create_display_4.png" class="w-full h-[50vh] p-3 object-cover" alt="">
-          <img src="@/src/assets/img/create_display_2.png" class="w-full h-[50vh] p-3 object-cover" alt="">
         </div>
       </div>
     </section>

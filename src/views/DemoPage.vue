@@ -116,7 +116,7 @@
         </div>
       </section>
     </main>
-    <info-panel />
+    <info-panel :chatItem="chatItem" />
   </section>
 
   <AlertDialog :open="isLeaving">
@@ -233,6 +233,11 @@ export default {
         this.data = res.data
         this.chatItem['title'] = this.data['title']
         this.chatItem['title_description'] = this.data['title_description']
+        this.chatItem['genre'] = this.data['genre']
+        this.chatItem['classification'] = this.data['classification']
+        this.chatItem['background'] = this.data['background']
+        this.chatItem['chat_history'] = this.data['chat_history']
+        this.chatHistory = JSON.parse(this.chatItem['chat_history'])
       }).catch((error) => {
         console.error('Error: ', error)
       }).finally(() => {

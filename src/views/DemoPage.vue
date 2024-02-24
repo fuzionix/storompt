@@ -186,33 +186,7 @@ export default {
           title_description: ''
         },
         chatLoading: false,
-        chatHistory: [
-          {
-            name: 'Seraphina Windwhisper',
-            message: 'Et penatibus ut mauris tellus pharetra.',
-            user: false
-          },
-          {
-            name: 'Seraphina Windwhisper',
-            message: 'Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.',
-            user: false
-          },
-          {
-            name: 'You',
-            message: 'Et penatibus ut mauris tellus pharetra aliquet.',
-            user: true
-          },
-          {
-            name: 'Seraphina Windwhisper',
-            message: 'Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. Tristique duis sed sed fermentum vel.',
-            user: false
-          },
-          {
-            name: 'Seraphina Windwhisper',
-            message: 'Et penatibus ut mauris tellus pharetra aliquet vestibulum nunc diam. ',
-            user: false
-          },
-        ],
+        chatHistory: [],
         userTextInput: '',
         isLeaving: false, // TODO
       }
@@ -223,6 +197,14 @@ export default {
       if (this.windowWidth <= this.minwindowWidth) {
         this.store.sidemenuStatus = false
       }
+
+      this.chatHistory.push({
+        name: '',
+        message: '',
+        user: false
+      })
+
+      this.chatLoading = true
 
       axios({
         method: 'get',
@@ -243,7 +225,7 @@ export default {
         console.error('Error: ', error)
         this.$router.push('/error/no-data')
       }).finally(() => {
-        
+        this.chatLoading = false
       })
     },
     mounted() {
@@ -253,9 +235,11 @@ export default {
       window.removeEventListener('resize', this.detectWindowSize);
     },
     beforeRouteLeave(to, from) {
-      this.isLeaving = true
-      const answer = window.confirm('Are you sure you want to leave? Confirm to exit')
-      if (!answer) return false
+      // prevent popup if no data fetched
+      if (this.chatItem['title'] !== '') {
+        const answer = window.confirm('Are you sure you want to leave? Confirm to exit')
+        if (!answer) return false
+      }
     },
     methods: {
       openSidemenu() {

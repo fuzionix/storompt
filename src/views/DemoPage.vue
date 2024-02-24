@@ -238,8 +238,10 @@ export default {
         this.chatItem['background'] = this.data['background']
         this.chatItem['chat_history'] = this.data['chat_history']
         this.chatHistory = JSON.parse(this.chatItem['chat_history'])
+        this.scrollToBottom()
       }).catch((error) => {
         console.error('Error: ', error)
+        this.$router.push('/error/no-data')
       }).finally(() => {
         
       })
@@ -296,13 +298,14 @@ export default {
             method: 'post',
             url: `http://127.0.0.1:8000/chat/${this.$route.params.demoId}`,
             data: {
-              userTextInput: this.userTextInput
+              userTextInput: this.userTextInput,
+              chatHistory: JSON.stringify(this.chatHistory.slice(0, -1))
             }
           }).then((res) => {
             this.data = res.data
             Object.assign(this.chatHistory.slice(-1)[0], {
-              name: 'Bot',
-              message: this.data['msg'],
+              name: this.data['name'],
+              message: this.data['message'],
               user: false
             })
           }).catch((error) => {

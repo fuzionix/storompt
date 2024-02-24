@@ -29,14 +29,14 @@ const routes = [
     component: () => import('../views/Register.vue')
   },
   {
-    path: '/404',
-    name: '404',
+    path: '/error/:name',
+    name: 'error',
     component: () => import('../views/Error.vue'),
     hidden: true
   },
   {
     path: '/:catchAll(.*)',
-    redirect: '/404',
+    redirect: '/error/page',
     hidden: true
   }
 ]

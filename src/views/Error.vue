@@ -40,7 +40,7 @@
         <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
           <h5 class="mb-2 text-sm font-semibold">System Bot</h5>
           <div class="w-fit px-4 py-3 text-sm bg-theme-light rounded-lg shadow-edge">
-            <p class="w-fit">{{ error['message'] }} Please go back to the previous page.</p>
+            <p class="w-fit">{{ error['message'] }}</p>
           </div>
         </div>
         <div id="avatar-r" class="w-8">
@@ -85,11 +85,15 @@ export default {
       switch (this.errorName) {
         case 'page':
           this.error['type'] = 'Error 404 - Page not found.'
-          this.error['message'] = 'You may entered the wrong path or the path doesn’t exist anymore.'
+          this.error['message'] = 'You may entered the wrong path or the path doesn’t exist anymore. Please go back to the previous page.'
           break
         case 'no-data':
           this.error['type'] = 'No chat data found.'
-          this.error['message'] = 'Perhaps it is a network problem or the chat doesn’t exist anymore.'
+          this.error['message'] = 'Perhaps it is a network problem or the chat doesn’t exist anymore. Please try again.'
+          break
+        default:
+          this.error['type'] = 'Something went wrong.'
+          this.error['message'] = 'Please go back to the previous page.'
       }
     },
     methods: {

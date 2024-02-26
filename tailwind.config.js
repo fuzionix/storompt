@@ -136,6 +136,10 @@ module.exports = {
         "shift-down": {
           from: { transform: 'translateY(-50px)' },
           to: { transform: 'translateY(0px)' }
+        },
+        "fade-in": {
+          from: { opacity: 0 },
+          to: { opacity: 1 }
         }
       },
       animation: {
@@ -145,7 +149,8 @@ module.exports = {
         "collapsible-up": "collapsible-up 0.2s ease-in-out",
         "bubble-fade-in": "bubble-fade-in 0.2s ease-in-out",
         "shift-up": "shift-up 5s ease-in-out",
-        "shift-down": "shift-down 5s ease-in-out"
+        "shift-down": "shift-down 5s ease-in-out",
+        "fade-in": "fade-in 0.2s ease-in-out"
       },
     },
   },

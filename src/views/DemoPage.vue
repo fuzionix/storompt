@@ -74,7 +74,10 @@
                     alt="" 
                     width="24"
                   >
-                  <p class="w-fit">{{ chat.message }}</p>
+                  <p v-if="true" class="w-fit">{{ chat.message }}</p>
+                  <!-- <p v-else class="w-fit">
+                    <span v-for="word in animateText" class="inline-block animate-fade-in">{{ word }}&nbsp</span>
+                  </p> -->
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
@@ -119,7 +122,7 @@
     <info-panel :chatItem="chatItem" />
   </section>
 
-  <AlertDialog :open="isLeaving">
+  <!-- <AlertDialog :open="isLeaving">
     <AlertDialogContent class="min-h-[150px]">
       <AlertDialogHeader>
         <AlertDialogTitle>Are you sure you want to leave?</AlertDialogTitle>
@@ -133,7 +136,7 @@
         <AlertDialogAction>Confirm</AlertDialogAction>
       </AlertDialogFooter>
     </AlertDialogContent>
-  </AlertDialog>
+  </AlertDialog> -->
 </template>
 
 <script>
@@ -187,6 +190,7 @@ export default {
         },
         chatLoading: false,
         chatHistory: [],
+        animateText: [],
         userTextInput: '',
         isLeaving: false, // TODO
       }
@@ -226,6 +230,7 @@ export default {
         this.$router.push('/error/no-data')
       }).finally(() => {
         this.chatLoading = false
+        this.displayText()
       })
     },
     mounted() {
@@ -292,6 +297,7 @@ export default {
               message: this.data['message'],
               user: false
             })
+            this.displayText(this.data['message'])
           }).catch((error) => {
             Object.assign(this.chatHistory.slice(-1)[0], {
               name: 'Error System',
@@ -299,6 +305,7 @@ export default {
               user: false,
               danger: true
             })
+            this.displayText(this.data['message'])
           }).finally(() => {
             this.scrollToBottom()
             this.isActive = false
@@ -318,6 +325,19 @@ export default {
             inline: "nearest" 
           })
         })
+      },
+      displayText() {
+        let messageResult = this.chatHistory.slice(-1)[0]['message'].split(' ')
+        let messageIndex = 0
+        
+        const nInterval = setInterval(() => {
+          this.animateText.push(messageResult[messageIndex])
+          messageIndex += 1
+
+          if ((messageIndex >= messageResult.length) || (messageIndex > 1000)) {
+            clearInterval(nInterval)
+          }
+        }, 50);
       }
     }
 }

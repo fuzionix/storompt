@@ -60,7 +60,7 @@
               >
                 <h5 class="mb-2 text-sm font-semibold">{{ chat.name }}</h5>
                 <div 
-                  class="relative flex min-h-[2.75rem] min-w-[2.75rem] w-fit px-4 py-3 text-sm rounded-lg"
+                  class="relative flex flex-col min-h-[2.75rem] min-w-[2.75rem] w-fit px-4 py-3 text-sm rounded-lg md:flex-row"
                   :class="[
                     chat.user ? 'bg-theme-pale shadow-edge-theme' : 'bg-theme-light shadow-edge',
                     chat.danger ? '!bg-danger text-white shadow-none' : ''
@@ -78,6 +78,10 @@
                   <!-- <p v-else class="w-fit">
                     <span v-for="word in animateText" class="inline-block animate-fade-in">{{ word }}&nbsp</span>
                   </p> -->
+                  <button v-if="chat.danger" @click="sendMessage(this.chatHistory.slice(-2)[0]['message'], true)" class="flex items-center pt-4 md:pt-0 md:pl-4 hover:opacity-80">
+                    <RefreshCcw size="18" />
+                    <span class="px-2">Refresh</span>
+                  </button>
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
@@ -96,7 +100,7 @@
           <div id="input-frame" class="flex items-center h-full">
             <img src="@/src/assets/icon/magic_spark.svg" class="w-6" alt="">
             <div class="h-5 border-r border-r-theme-gray mx-7"></div>
-            <form action="/" method="" @submit.prevent="sendMessage()" class="flex flex-1">
+            <form action="/" method="" @submit.prevent="sendMessage(userTextInput)" class="flex flex-1">
               <input 
                 type="text" 
                 v-model.trim="userTextInput"
@@ -143,6 +147,8 @@
 import Sidemenu from '@/src/components/Sidemenu.vue'
 import InfoPanel from '@/src/components/InfoPanel.vue'
 
+import { RefreshCcw } from 'lucide-vue-next';
+
 import {
   AlertDialog,
   AlertDialogAction,
@@ -174,6 +180,7 @@ export default {
       AlertDialogHeader,
       AlertDialogTitle,
       AlertDialogTrigger,
+      RefreshCcw
     },
     props: [
     ],
@@ -189,6 +196,7 @@ export default {
           title_description: ''
         },
         chatLoading: false,
+        chatLoadingSuccess: true,
         chatHistory: [],
         animateText: [],
         userTextInput: '',
@@ -227,10 +235,11 @@ export default {
         this.scrollToBottom()
       }).catch((error) => {
         console.error('Error: ', error)
-        this.$router.push('/error/no-data')
+        this.chatLoadingSuccess = false
+        // this.$router.push('/error/no-data')
       }).finally(() => {
         this.chatLoading = false
-        this.displayText()
+        // this.displayText()
       })
     },
     mounted() {
@@ -241,7 +250,7 @@ export default {
     },
     beforeRouteLeave(to, from) {
       // prevent popup if no data fetched
-      if (this.chatItem['title'] !== '') {
+      if (this.chatLoadingSuccess) {
         const answer = window.confirm('Are you sure you want to leave? Confirm to exit')
         if (!answer) return false
       }
@@ -263,17 +272,25 @@ export default {
       changeIcon(status) {
         this.fillIcon = status
       },
-      sendMessage() {
-        if (this.userTextInput && !this.isActive) {
+      sendMessage(textInput, refresh = false) {
+        if (textInput && !this.isActive) {
           this.isActive = true
 
-          // insert message into chat history. display new chat bubble automatically
-          this.chatHistory.push({
-            name: 'You',
-            message: this.userTextInput,
-            user: true
-          })
+          if (this.chatHistory.slice(-1)[0]['danger'] == true) {
+            this.chatHistory.pop()
+          }
 
+          console.log(textInput)
+
+          // insert message into chat history. display new chat bubble automatically
+          if (!refresh) {
+            this.chatHistory.push({
+              name: 'You',
+              message: textInput,
+              user: true
+            })
+          }
+          
           this.chatHistory.push({
             name: '',
             message: '',
@@ -287,7 +304,7 @@ export default {
             method: 'post',
             url: `http://127.0.0.1:8000/chat/${this.$route.params.demoId}`,
             data: {
-              userTextInput: this.userTextInput,
+              userTextInput: textInput,
               chatHistory: JSON.stringify(this.chatHistory.slice(0, -1))
             }
           }).then((res) => {
@@ -297,7 +314,7 @@ export default {
               message: this.data['message'],
               user: false
             })
-            this.displayText(this.data['message'])
+            // this.displayText(this.data['message'])
           }).catch((error) => {
             Object.assign(this.chatHistory.slice(-1)[0], {
               name: 'Error System',
@@ -305,7 +322,7 @@ export default {
               user: false,
               danger: true
             })
-            this.displayText(this.data['message'])
+            // this.displayText(this.data['message'])
           }).finally(() => {
             this.scrollToBottom()
             this.isActive = false

@@ -61,14 +61,14 @@
           </form>
         </div>
         <div class="items-top flex mt-8 gap-x-2">
-          <Checkbox id="terms1" />
+          <Checkbox id="terms" />
           <div class="grid gap-1.5 leading-none">
-            <label
-              for="terms1"
+            <Label
+              for="terms"
               class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
             >
               Accept terms and conditions
-            </label>
+            </Label>
             <p class="text-sm text-muted-foreground">
               You agree to our Terms of Service and Privacy Policy.
             </p>
@@ -99,6 +99,7 @@ import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from '@/
 import { Checkbox } from '@/src/components_shadcn/ui/checkbox'
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/src/components_shadcn/ui/form'
 import { Input } from '@/src/components_shadcn/ui/input'
+import { Label } from '@/src/components_shadcn/ui/label'
 
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'

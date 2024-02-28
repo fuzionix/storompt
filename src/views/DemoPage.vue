@@ -78,7 +78,16 @@
                   <!-- <p v-else class="w-fit">
                     <span v-for="word in animateText" class="inline-block animate-fade-in">{{ word }}&nbsp</span>
                   </p> -->
-                  <button v-if="chat.danger" @click="sendMessage(this.chatHistory.slice(-2)[0]['message'], true)" class="flex items-center pt-4 md:pt-0 md:pl-4 hover:opacity-80">
+                  <button 
+                    v-if="chat.danger" 
+                    @click="sendMessage(
+                      this.chatHistory.length > 1 
+                      ? this.chatHistory.slice(-2)[0]['message'] 
+                      : this.$router.go(), 
+                      true
+                    )" 
+                    class="flex items-center pt-4 md:pt-0 md:pl-4 hover:opacity-80"
+                  >
                     <RefreshCcw size="18" />
                     <span class="px-2">Refresh</span>
                   </button>
@@ -231,11 +240,22 @@ export default {
         this.chatItem['classification'] = this.data['classification']
         this.chatItem['background'] = this.data['background']
         this.chatItem['chat_history'] = this.data['chat_history']
-        this.chatHistory = JSON.parse(this.chatItem['chat_history'])
+        if (this.chatItem['chat_history']) {
+          this.chatHistory = JSON.parse(this.chatItem['chat_history'])
+        } else {
+          throw new Error('No chat history found');
+        }
+        
         this.scrollToBottom()
       }).catch((error) => {
         console.error('Error: ', error)
         this.chatLoadingSuccess = false
+        Object.assign(this.chatHistory.slice(-1)[0], {
+          name: 'Error System',
+          message: `Cannot load the story. Please try again [${error}]`,
+          user: false,
+          danger: true
+        })
         // this.$router.push('/error/no-data')
       }).finally(() => {
         this.chatLoading = false
@@ -279,8 +299,6 @@ export default {
           if (this.chatHistory.slice(-1)[0]['danger'] == true) {
             this.chatHistory.pop()
           }
-
-          console.log(textInput)
 
           // insert message into chat history. display new chat bubble automatically
           if (!refresh) {

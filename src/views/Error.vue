@@ -1,4 +1,5 @@
 <template>
+  <navigation />
   <section id="error" class="flex flex-col items-center justify-center min-h-[100vh]">
     <div id="chat-message-container" class="flex flex-col items-center px-3 py-7 pt-[calc(1rem+var(--header))] 
     sm:px-7">
@@ -57,6 +58,7 @@
 
 <script>
 import Footer from '@/src/components/Footer.vue'
+import NavigationBar from '@/src/components/NavigationBar.vue'
 
 import { Button } from '@/src/components_shadcn/ui/button'
 
@@ -65,7 +67,7 @@ export default {
     name: 'Error',
     components: {
       'self-footer': Footer,
-
+      'navigation': NavigationBar,
       'cn-button': Button
     },
     props: [

@@ -14,6 +14,11 @@ const routes = [
     component: () => import('../views/CreateDemo.vue')
   },
   {
+    path: '/custom-demo',
+    name: 'createCustomDemo',
+    component: () => import('../views/CreateCustomDemo.vue')
+  },
+  {
     path: '/demo/:demoId',
     name: 'demo',
     component: () => import('../views/DemoPage.vue')

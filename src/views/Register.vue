@@ -23,7 +23,7 @@
               <FormItem class="mb-8">
                 <FormLabel>Email Address</FormLabel>
                 <FormControl>
-                  <Input type="text" class="h-[50px] pl-6 border-theme-darklight text-md" placeholder="example@exmail.com" v-bind="componentField" autocomplete="email" />
+                  <Input type="text" class="h-[50px] pl-6 text-md" placeholder="example@exmail.com" v-bind="componentField" autocomplete="email" />
                 </FormControl>
                 <FormMessage />
               </FormItem>
@@ -32,7 +32,7 @@
               <FormItem class="mb-8">
                 <FormLabel>Password</FormLabel>
                 <FormControl>
-                  <Input type="password" class="h-[50px] pl-6 border-theme-darklight text-md" placeholder="" v-bind="componentField" autocomplete="new-password" />
+                  <Input type="password" class="h-[50px] pl-6 text-md" placeholder="" v-bind="componentField" autocomplete="new-password" />
                 </FormControl>
                 <FormDescription>
                   Password must contain at least 8 charactor(s)
@@ -44,7 +44,7 @@
               <FormItem class="mb-8">
                 <FormLabel>Confirm Password</FormLabel>
                 <FormControl>
-                  <Input type="password" class="h-[50px] pl-6 border-theme-darklight text-md" placeholder="" v-bind="componentField" autocomplete="new-password" />
+                  <Input type="password" class="h-[50px] pl-6 text-md" placeholder="" v-bind="componentField" autocomplete="new-password" />
                 </FormControl>
                 <FormDescription>
                   Type your password again to confirm

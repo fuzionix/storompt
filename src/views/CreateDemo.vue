@@ -1,5 +1,5 @@
 <template>
-  <NavigationBar class="hidden 2xl:flex xl:pr-[768px]"/>
+  <NavigationBar class="xl:pr-[768px]" breakpoint="2xl:block"/>
   <section id="create-demo" class="flex items-center justify-center h-[100vh] overflow-hidden">
     <div id="create-demo-container" class="flex flex-col items-center flex-1 w-full p-7 pt-[calc(1rem+var(--header))] 
       sm:px-20">

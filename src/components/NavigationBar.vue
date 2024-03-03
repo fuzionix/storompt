@@ -5,7 +5,7 @@
         <img src="@/src/assets/logo/storompt_logo_dark_only.svg" width="40" alt="storompt logo" class="w-10">
       </router-link>
     </div>
-    <NavigationMenu class="hidden md:block pl-[100px]">
+    <NavigationMenu class="hidden pl-[100px]" :class="breakpoint">
       <NavigationMenuList>
         <NavigationMenuItem>
           <NavigationMenuTrigger>Getting started</NavigationMenuTrigger>
@@ -102,8 +102,11 @@ export default {
       NavigationMenuTrigger,
       ListItem
     },
-    props: [
-    ],
+    props: {
+      breakpoint: {
+        default: 'md:block'
+      }
+    },
     data() {
       return {
         navigationItems: [

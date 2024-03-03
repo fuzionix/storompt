@@ -1,5 +1,5 @@
 <template>
-  <navigation />
+  <NavigationBar />
   <section id="error" class="flex flex-col items-center justify-center min-h-[100vh]">
     <div id="chat-message-container" class="flex flex-col items-center px-3 py-7 pt-[calc(1rem+var(--header))] 
     sm:px-7">
@@ -51,9 +51,9 @@
       <!-- Display Chat Block -->
     </div>
 
-    <cn-button @click="goPrevious">Go Back</cn-button>
+    <Button @click="goPrevious">Go Back</Button>
   </section>
-  <self-footer></self-footer>
+  <Footer></Footer>
 </template>
 
 <script>
@@ -66,9 +66,9 @@ import { Button } from '@/src/components_shadcn/ui/button'
 export default {
     name: 'Error',
     components: {
-      'self-footer': Footer,
-      'navigation': NavigationBar,
-      'cn-button': Button
+      NavigationBar,
+      Footer,
+      Button
     },
     props: [
     ],

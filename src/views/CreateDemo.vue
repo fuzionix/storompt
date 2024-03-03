@@ -1,4 +1,5 @@
 <template>
+  <NavigationBar class="hidden 2xl:flex xl:pr-[768px]"/>
   <section id="create-demo" class="flex items-center justify-center h-[100vh] overflow-hidden">
     <div id="create-demo-container" class="flex flex-col items-center flex-1 w-full p-7 pt-[calc(1rem+var(--header))] 
       sm:px-20">
@@ -44,6 +45,8 @@
 </template>
 
 <script>
+import NavigationBar from '@/src/components/NavigationBar.vue'
+
 import { AlertCircle } from 'lucide-vue-next'
 import { Button } from '@/src/components_shadcn/ui/button'
 import { Alert, AlertDescription, AlertTitle } from '@/src/components_shadcn/ui/alert'
@@ -57,7 +60,8 @@ export default {
       Alert,
       AlertDescription,
       AlertTitle,
-      AlertCircle
+      AlertCircle,
+      NavigationBar
     },
     props: [
     ],

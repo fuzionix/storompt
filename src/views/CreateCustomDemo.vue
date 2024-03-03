@@ -1,4 +1,5 @@
 <template>
+  <NavigationBar />
   <section id="create-custom-demo" class="create-custom-demo">
     <div id="create-custom-demo-container" class="flex flex-col items-center flex-1 w-full p-7 pt-[calc(1rem+var(--header))] 
       sm:px-20">
@@ -89,6 +90,8 @@
 </template>
 
 <script setup>
+import NavigationBar from '@/src/components/NavigationBar.vue'
+
 import { Button } from '@/src/components_shadcn/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/components_shadcn/ui/card'
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/src/components_shadcn/ui/form'

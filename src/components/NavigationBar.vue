@@ -61,8 +61,8 @@
           </NavigationMenuContent>
         </NavigationMenuItem>
         <NavigationMenuItem class="px-4 py-2">
-          <NavigationMenuLink @click.prevent="$router.push('/')" href="/" class="text-sm font-medium leading-[2]">
-            Documentation
+          <NavigationMenuLink @click.prevent="$router.push('/login')" href="/" class="text-sm font-medium leading-[2]">
+            Membership
           </NavigationMenuLink>
         </NavigationMenuItem>
       </NavigationMenuList>

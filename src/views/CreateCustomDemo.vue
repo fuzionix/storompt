@@ -26,7 +26,7 @@
                   <CardDescription>Card Description</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <FormField v-slot="{ componentField }" name="username">
+                  <FormField v-slot="{ componentField }" name="title">
                     <FormItem class="mb-8">
                       <FormLabel>Story Name</FormLabel>
                       <FormControl>
@@ -35,6 +35,32 @@
                       <FormMessage />
                     </FormItem>
                   </FormField>
+                  <div class="flex">
+                    <FormField v-slot="{ componentField }" name="genre">
+                      <FormItem class="mb-8">
+                        <Select v-bind="componentField">
+                          <SelectTrigger id="framework">
+                            <SelectValue placeholder="Select Genre" />
+                          </SelectTrigger>
+                          <SelectContent position="popper">
+                            <SelectItem value="nuxt">
+                              Nuxt.js
+                            </SelectItem>
+                            <SelectItem value="next">
+                              Next.js
+                            </SelectItem>
+                            <SelectItem value="sveltekit">
+                              SvelteKit
+                            </SelectItem>
+                            <SelectItem value="astro">
+                              Astro
+                            </SelectItem>
+                          </SelectContent>
+                        </Select>
+                      </FormItem>
+                    </FormField>
+                    
+                  </div>
                 </CardContent>
                 <CardFooter class="text-xs text-theme-black opacity-65">
                   Card Footer
@@ -49,32 +75,14 @@
                   <CardDescription>Card Description</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <Select>
-                    <SelectTrigger id="framework">
-                      <SelectValue placeholder="Select" />
-                    </SelectTrigger>
-                    <SelectContent position="popper">
-                      <SelectItem value="nuxt">
-                        Nuxt.js
-                      </SelectItem>
-                      <SelectItem value="next">
-                        Next.js
-                      </SelectItem>
-                      <SelectItem value="sveltekit">
-                        SvelteKit
-                      </SelectItem>
-                      <SelectItem value="astro">
-                        Astro
-                      </SelectItem>
-                    </SelectContent>
-                  </Select>
+                  
                 </CardContent>
                 <CardFooter class="text-xs text-theme-black opacity-65">
                   Card Footer
                 </CardFooter>
               </Card>
               <Button 
-                @click="createItem()"
+                type="submit"
                 class="relative w-full mt-8 h-[50px] before:duration-200 before:content-[url('@/src/assets/icon/game.svg')] 
                 before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125"
               >
@@ -110,6 +118,19 @@ import { VenetianMask } from 'lucide-vue-next'
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import * as z from 'zod'
+
+const formSchema = toTypedSchema(z.object({
+  title: z.string().max(100),
+  genre: z.string().optional()
+}))
+
+const { handleSubmit } = useForm({
+  validationSchema: formSchema,
+})
+
+const onSubmit = handleSubmit((values) => {
+  console.log('Form submitted!', values)
+})
 
 
 </script>

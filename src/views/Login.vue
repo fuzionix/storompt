@@ -1,6 +1,6 @@
 <template>
   <NavigationBar class="md:pl-[calc(1.75rem+384px)] xl:pl-[calc(1.75rem+768px)]" breakpoint="2xl:block"/>
-  <section id="login" class="flex flex-row-reverse items-center justify-center md:h-[100vh] overflow-hidden">
+  <section id="login" class="flex flex-row-reverse items-center justify-center md:h-[100vh] overflow-y-scroll">
     <div id="login-container" class="flex flex-col items-center flex-1 w-full p-7 pt-[calc(1rem+var(--header))] 
       sm:px-20">
       <div class="max-w-[500px]">

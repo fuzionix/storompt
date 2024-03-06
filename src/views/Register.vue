@@ -1,5 +1,6 @@
 <template>
-  <section id="register" class="flex flex-col items-center justify-center overflow-hidden md:flex-row md:h-[100vh] overflow-y-scroll">
+  <NavigationBar class="md:pr-[calc(1.75rem+384px)] xl:pr-[calc(1.75rem+768px)]" breakpoint="2xl:block"/>
+  <section id="register" class="flex flex-col justify-center md:flex-row md:h-[100vh]">
     <div id="register-container" class="flex flex-col items-center flex-1 w-full p-7 pt-[calc(1rem+var(--header))] 
       sm:px-20">
       <div class="max-w-[500px]">
@@ -18,7 +19,7 @@
           </AlertDescription>
         </Alert>
         <div class="flex mt-8">
-          <form @submit.prevent="onSubmit()" class="w-full">
+          <form @submit.prevent="onSubmit()" class="w-full pb-7">
             <FormField v-slot="{ componentField }" name="username">
               <FormItem class="mb-8">
                 <FormLabel>Email Address</FormLabel>
@@ -58,22 +59,35 @@
             <Button @click="$router.push('/login')" variant="secondary" class="h-[50px] px-6 ml-4" >
               I Have Account
             </Button>
+            <FormField v-slot="{ termsValue, handleChange }" type="checkbox" name="termscheck">
+              <FormItem>
+                <div class="items-top flex mt-8 gap-x-2">
+                  <FormControl>
+                    <Checkbox id="terms" :checked="termsValue" @update:checked="handleChange" />
+                  </FormControl>
+                  <div class="grid gap-1.5 leading-none">
+                    <Label
+                      for="terms"
+                      class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
+                    >
+                      I accept terms and conditions
+                    </Label>
+                    <p class="text-sm text-muted-foreground">
+                      You agree to our Terms of Service and Privacy Policy.
+                    </p>
+                  </div>
+                </div>
+              </FormItem>
+            </FormField>
           </form>
         </div>
-        <div class="items-top flex mt-8 gap-x-2">
-          <Checkbox id="terms" />
-          <div class="grid gap-1.5 leading-none">
-            <Label
-              for="terms"
-              class="text-sm font-medium leading-none peer-disabled:cursor-not-allowed peer-disabled:opacity-70"
-            >
-              Accept terms and conditions
-            </Label>
-            <p class="text-sm text-muted-foreground">
-              You agree to our Terms of Service and Privacy Policy.
-            </p>
-          </div>
-        </div>
+        <Alert v-if="createError" class="mb-8" variant="destructive">
+          <AlertCircle class="w-4 h-4" />
+          <AlertTitle>Failed To Create!</AlertTitle>
+          <AlertDescription>
+            {{ createErrorMessage }}
+          </AlertDescription>
+        </Alert>
       </div>
     </div>
     <div id="display-area" class="flex justify-center items-center h-full p-7 md:border-l md:w-[384px] xl:w-[768px]">
@@ -90,6 +104,8 @@
 </template>
 
 <script setup>
+import NavigationBar from '@/src/components/NavigationBar.vue'
+
 import { ref } from 'vue'
 
 import { AlertCircle } from 'lucide-vue-next'
@@ -108,9 +124,10 @@ import * as z from 'zod'
 import axios from 'axios'
 
 const formSchema = toTypedSchema(z.object({
-  username: z.string(),
-  password: z.string(),
-  passowrdConfirm: z.string()
+  username: z.string().email(),
+  password: z.string().min(8),
+  passowrdConfirm: z.string().min(8),
+  termscheck: z.boolean().default(false)
 }))
 
 const form = useForm({
@@ -131,6 +148,7 @@ const accordionItems = ref(
     { value: 'item-3', title: 'Can it be animated?', content: 'Yes! You can use the transition prop to configure the animation.' },
   ]
 )
+const createErrorMessage = ref("ii")
 </script>
 
 <style>

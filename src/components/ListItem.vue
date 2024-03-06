@@ -13,8 +13,12 @@ const props = defineProps({
         v-bind="$attrs"
         class="focus:shadow-[0_0_0_2px] focus:shadow-green7 hover:bg-theme-verylight block select-none rounded-[6px] p-3 text-[15px] leading-none no-underline outline-none transition-colors"
       >
-        <div class="mb-[5px] font-medium leading-[1.2]">
-          {{ props.title }}
+        <div class="flex items-center mb-[5px] font-medium leading-[1.2]">
+          <span class="inline-block pr-2">
+            <slot name="icon"></slot>
+          </span>
+          <span>{{ props.title }}</span>
+          
         </div>
         <p class="text-sm opacity-80 my-0 leading-[1.4]">
           <slot />

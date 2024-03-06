@@ -34,12 +34,21 @@
                 </NavigationMenuLink>
               </li>
               <ListItem href="/docs" title="Randomize">
+                <template #icon>
+                  <Dices :size="iconSize" :strokeWidth="iconStroke" />
+                </template>
                 Re-usable components built using Radix UI and Tailwind CSS.
               </ListItem>
               <ListItem href="/docs/installation" title="Customize">
+                <template #icon>
+                  <SlidersHorizontal :size="iconSize" :strokeWidth="iconStroke" />
+                </template>
                 How to install dependencies and structure your app.
               </ListItem>
               <ListItem href="/docs/primitives/typography" title="Explore More">
+                <template #icon>
+                  <Compass  :size="iconSize" :strokeWidth="iconStroke" />
+                </template>
                 Styles for headings, paragraphs, lists...etc
               </ListItem>
             </ul>
@@ -55,6 +64,9 @@
                 :key="item.title"
                 :title="item.title"
               >
+                <template #icon>
+                  <component :is="item.icon" :size="iconSize" :strokeWidth="iconStroke" />
+                </template>
                 {{ item.description }}
               </ListItem>
             </ul>
@@ -69,7 +81,7 @@
     </NavigationMenu>
     <div class="">
       <a 
-        class="flex items-center font-semibold border px-6 py-3 hover:bg-theme-verylight" 
+        class="flex items-center font-semibold border px-6 py-3 bg-white hover:bg-theme-verylight" 
         href="https://github.com/TaylonChan/storompt" 
         target="_blank"
       >
@@ -91,6 +103,18 @@ import {
 } from '@/src/components_shadcn/ui/navigation-menu'
 import ListItem from '@/src/components/ListItem.vue'
 
+import { 
+  Dices,
+  SlidersHorizontal,
+  Compass,
+  Swords,
+  Rocket,
+  MessageCircleHeart,
+  SearchSlash,
+  BookUser,
+  Ghost         
+} from 'lucide-vue-next'
+
 export default {
     name: 'NavigationBar',
     components: {
@@ -100,7 +124,17 @@ export default {
       NavigationMenuLink,
       NavigationMenuList,
       NavigationMenuTrigger,
-      ListItem
+      ListItem,
+
+      Dices,
+      SlidersHorizontal,
+      Compass,
+      Swords,
+      Rocket,
+      MessageCircleHeart,
+      SearchSlash,
+      BookUser,
+      Ghost       
     },
     props: {
       breakpoint: {
@@ -109,41 +143,44 @@ export default {
     },
     data() {
       return {
+        iconSize: 20,
+        iconStroke: 1.5,
         navigationItems: [
           {
             title: 'Fantasy',
             href: '/explore/fantasy',
-            description:
-              'A modal dialog that interrupts the user with important content and expects a response.',
+            icon: 'Swords',
+            description: 'A modal dialog that interrupts the user with important content and expects a response.',
           },
           {
             title: 'Science Fiction',
             href: '/explore/science-fiction',
-            description:
-              'For sighted users to preview content available behind a link.',
+            icon: 'Rocket',
+            description: 'For sighted users to preview content available behind a link.',
           },
           {
             title: 'Romance',
             href: '/explore/romance',
-            description:
-              'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
+            icon: 'MessageCircleHeart',
+            description: 'Displays an indicator showing the completion progress of a task, typically displayed as a progress bar.',
           },
           {
             title: 'Mystery',
             href: '/explore/mystery',
+            icon: 'SearchSlash',
             description: 'Visually or semantically separates content.',
           },
           {
             title: 'Historical Fiction',
             href: '/explore/historical-fiction',
-            description:
-              'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
+            icon: 'BookUser',
+            description: 'A set of layered sections of content—known as tab panels—that are displayed one at a time.',
           },
           {
             title: 'Horror',
             href: '/explore/horror',
-            description:
-              'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
+            icon: 'Ghost',
+            description: 'A popup that displays information related to an element when the element receives keyboard focus or the mouse hovers over it.',
           },
         ]
       }

@@ -38,25 +38,43 @@
                   <div class="flex">
                     <FormField v-slot="{ componentField }" name="genre">
                       <FormItem class="mb-8">
-                        <Select v-bind="componentField">
-                          <SelectTrigger id="framework">
-                            <SelectValue placeholder="Select Genre" />
-                          </SelectTrigger>
-                          <SelectContent position="popper">
-                            <SelectItem value="nuxt">
-                              Nuxt.js
-                            </SelectItem>
-                            <SelectItem value="next">
-                              Next.js
-                            </SelectItem>
-                            <SelectItem value="sveltekit">
-                              SvelteKit
-                            </SelectItem>
-                            <SelectItem value="astro">
-                              Astro
-                            </SelectItem>
-                          </SelectContent>
-                        </Select>
+                        
+                        <button 
+                          id="dropdownDefaultButton" 
+                          data-dropdown-toggle="dropdown" 
+                          class="flex h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 w-[180px]" 
+                          type="button"
+                          @click="dropdownGenre = true"
+                        >
+                          Select Genre 
+                          <ChevronDown class="w-4 h-4 opacity-50" />
+                        </button>
+
+                        <!-- Dropdown menu -->
+                        <div 
+                          id="dropdown"
+                          ref="dropdown" 
+                          :data-state="dropdownGenre ? 'open' : 'closed'" 
+                          :class="dropdownGenre ? '' : 'hidden'" 
+                          class="absolute z-50 max-h-96 min-w-32 overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
+                        >
+                          <ul class="p-1 text-sm" aria-labelledby="dropdownDefaultButton">
+                            <li @click="closeDropdown()" class="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-10 text-sm outline-none hover:bg-accent hover:cursor-pointer focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                              <span>Fantasy</span>
+                            </li>
+                            <li @click="closeDropdown()" class="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-10 text-sm outline-none hover:bg-accent hover:cursor-pointer focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                              <span>Science Fiction</span>
+                            </li>
+                            <li @click="closeDropdown()" class="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-10 text-sm outline-none hover:bg-accent hover:cursor-pointer focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                              <span>History</span>
+                            </li>
+                            <li @click="closeDropdown()" class="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-10 text-sm outline-none hover:bg-accent hover:cursor-pointer focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
+                              <span>Horror</span>
+                            </li>
+                          </ul>
+                        </div>
+
+                        
                       </FormItem>
                     </FormField>
                     
@@ -98,6 +116,8 @@
 </template>
 
 <script setup>
+import { ref } from 'vue'
+
 import NavigationBar from '@/src/components/NavigationBar.vue'
 
 import { Button } from '@/src/components_shadcn/ui/button'
@@ -112,8 +132,13 @@ import {
   SelectValue,
 } from '@/src/components_shadcn/ui/select'
 
-import { BookOpenText } from 'lucide-vue-next'
-import { VenetianMask } from 'lucide-vue-next'
+import { 
+  BookOpenText, 
+  VenetianMask, 
+  ChevronDown 
+} from 'lucide-vue-next'
+
+import { onClickOutside } from '@vueuse/core'
 
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
@@ -131,6 +156,15 @@ const { handleSubmit } = useForm({
 const onSubmit = handleSubmit((values) => {
   console.log('Form submitted!', values)
 })
+
+const dropdownGenre = ref(false)
+const dropdown = ref()
+
+function closeDropdown() {
+  dropdownGenre.value = false
+}
+
+onClickOutside(dropdown, closeDropdown)
 
 
 </script>

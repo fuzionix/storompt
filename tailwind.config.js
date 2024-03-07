@@ -12,6 +12,7 @@ module.exports = {
     './components/**/*.{js,jsx,vue}',
     './app/**/*.{js,jsx,vue}',
     './src/**/*.{js,jsx,vue}',
+    './node_modules/flowbite/**/*.js'
 	],
   
   theme: {

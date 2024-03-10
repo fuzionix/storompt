@@ -90,6 +90,30 @@
                       <FormMessage />
                     </FormItem>
                   </FormField>
+                  <FormField name="personality">
+                    <FormItem class="mb-8">
+                      <FormLabel>Personality</FormLabel>
+                        <div class="flex flex-wrap gap-2 items-center rounded-md border border-input bg-background px-3 py-2 text-sm">
+                          <div 
+                            v-for="(item, index) in listPersonality" 
+                            class="flex h-6 items-center rounded bg-secondary data-[state=active]:ring-ring data-[state=active]:ring-2 data-[state=active]:ring-offset-2 ring-offset-background"
+                          >
+                            <span class="py-1 px-2 text-sm rounded bg-transparent">{{ item }}</span>
+                            <button class="flex rounded bg-transparent mr-1" @click="removeTagItem(index)">
+                              <Plus class="rotate-45" width="16" height="16" />
+                            </button>
+                          </div>
+                          <input 
+                            type="text"
+                            v-model="personalityInput"
+                            class="focus:outline-none" 
+                            placeholder="Personalities ..."
+                            @keypress.exact="pressKey"
+                          >
+                        </div>
+                      <FormMessage />
+                    </FormItem>
+                  </FormField>
                 </CardContent>
                 <CardFooter class="text-xs text-theme-black opacity-65">
                   Card Footer
@@ -112,7 +136,7 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
+import { ref, toRaw, nextTick } from 'vue'
 
 import NavigationBar from '@/src/components/NavigationBar.vue'
 import Selector from '@/src/components/Selector.vue'
@@ -121,17 +145,12 @@ import { Button } from '@/src/components_shadcn/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/components_shadcn/ui/card'
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/src/components_shadcn/ui/form'
 import { Input } from '@/src/components_shadcn/ui/input'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/src/components_shadcn/ui/select'
+
 
 import { 
   BookOpenText, 
-  VenetianMask, 
+  VenetianMask,
+  Plus  
 } from 'lucide-vue-next'
 
 import { toTypedSchema } from '@vee-validate/zod'
@@ -153,6 +172,13 @@ const onSubmit = handleSubmit((values) => {
 })
 
 const listGenre = ref(['Fantasy', 'Science Fiction', 'History', 'Horror'])
+const listPersonality = ref([
+  'Generous',
+  'Funny',
+  'Evil',
+  'Approachable'
+])
+const personalityInput = ref('')
 
 function getSelectValueGenre(value) {
   console.log('getSelectValueGenre', value)
@@ -160,6 +186,20 @@ function getSelectValueGenre(value) {
 
 function getSelectValueCategory(value) {
   console.log('getSelectValueCategory', value)
+}
+
+function pressKey(e) {
+  if (e.code === 'Comma') {
+    const listPersonalityRaw = toRaw(listPersonality.value).push(personalityInput.value)
+    setTimeout(() => {
+      personalityInput.value = ''
+    }, 0)
+  }
+  
+}
+
+function removeTagItem(index) {
+  const listPersonalityRaw = toRaw(listPersonality.value).splice(index, 1)  
 }
 
 

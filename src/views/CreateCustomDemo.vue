@@ -30,55 +30,43 @@
                     <FormItem class="mb-8">
                       <FormLabel>Story Name</FormLabel>
                       <FormControl>
-                        <Input type="text" class="h-[50px] pl-6 bg-theme-light text-md" placeholder="Forgotten City" v-bind="componentField" />
+                        <Input type="text" class="h-[50px] pl-6 bg-theme-light text-md" placeholder="Forgotten City" v-bind="componentField" maxlength="100" autofocus  />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
                   </FormField>
-                  <div class="flex">
-                    <FormField v-slot="{ componentField }" name="genre">
-                      <FormItem class="mb-8">
-                        
-                        <button 
-                          id="dropdownDefaultButton" 
-                          data-dropdown-toggle="dropdown" 
-                          class="flex h-10 items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background placeholder:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1 w-[180px]" 
-                          type="button"
-                          @click="dropdownGenre = true"
-                        >
-                          Select Genre 
-                          <ChevronDown class="w-4 h-4 opacity-50" />
-                        </button>
-
-                        <!-- Dropdown menu -->
-                        <div 
-                          id="dropdown"
-                          ref="dropdown" 
-                          :data-state="dropdownGenre ? 'open' : 'closed'" 
-                          :class="dropdownGenre ? '' : 'hidden'" 
-                          class="absolute z-50 max-h-96 min-w-32 overflow-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95"
-                        >
-                          <ul class="p-1 text-sm" aria-labelledby="dropdownDefaultButton">
-                            <li @click="closeDropdown()" class="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-10 text-sm outline-none hover:bg-accent hover:cursor-pointer focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
-                              <span>Fantasy</span>
-                            </li>
-                            <li @click="closeDropdown()" class="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-10 text-sm outline-none hover:bg-accent hover:cursor-pointer focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
-                              <span>Science Fiction</span>
-                            </li>
-                            <li @click="closeDropdown()" class="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-10 text-sm outline-none hover:bg-accent hover:cursor-pointer focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
-                              <span>History</span>
-                            </li>
-                            <li @click="closeDropdown()" class="relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-10 text-sm outline-none hover:bg-accent hover:cursor-pointer focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50">
-                              <span>Horror</span>
-                            </li>
-                          </ul>
-                        </div>
-
-                        
+                  <div class="flex flex-col sm:flex-row">
+                    <FormField name="genre">
+                      <FormItem class="mb-8 flex-1 sm:pr-4">
+                        <FormLabel>Genre</FormLabel>
+                        <Selector 
+                          :listItem="listGenre" 
+                          @getSelectValue="getSelectValueGenre"
+                          placeholder="Select Genre"
+                        ></Selector>
                       </FormItem>
                     </FormField>
-                    
+                    <FormField name="category">
+                      <FormItem class="mb-8 flex-1 sm:pl-4">
+                        <FormLabel>Catergory</FormLabel>
+                        <Selector 
+                          :listItem="listGenre" 
+                          @getSelectValue="getSelectValueCategory"
+                          placeholder="Select Category"
+                        ></Selector>
+                      </FormItem>
+                    </FormField>
                   </div>
+                  <FormField v-slot="{ componentField }" name="description">
+                    <FormItem class="mb-8">
+                      <FormLabel>Story Description (Optional)</FormLabel>
+                      <CardDescription>Make one or two sentences to describe your story background</CardDescription>
+                      <FormControl>
+                        <Input type="text" class="h-[50px] pl-6 bg-theme-light text-md" placeholder="" v-bind="componentField" maxlength="500" />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </FormField>
                 </CardContent>
                 <CardFooter class="text-xs text-theme-black opacity-65">
                   Card Footer
@@ -93,7 +81,15 @@
                   <CardDescription>Card Description</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  
+                  <FormField v-slot="{ componentField }" name="charname">
+                    <FormItem class="mb-8">
+                      <FormLabel>Charactor Name</FormLabel>
+                      <FormControl>
+                        <Input type="text" class="h-[50px] pl-6 bg-theme-light text-md" placeholder="Eldric Shadowforge" v-bind="componentField" maxlength="100"  />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </FormField>
                 </CardContent>
                 <CardFooter class="text-xs text-theme-black opacity-65">
                   Card Footer
@@ -119,6 +115,7 @@
 import { ref } from 'vue'
 
 import NavigationBar from '@/src/components/NavigationBar.vue'
+import Selector from '@/src/components/Selector.vue'
 
 import { Button } from '@/src/components_shadcn/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/components_shadcn/ui/card'
@@ -135,18 +132,16 @@ import {
 import { 
   BookOpenText, 
   VenetianMask, 
-  ChevronDown 
 } from 'lucide-vue-next'
-
-import { onClickOutside } from '@vueuse/core'
 
 import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import * as z from 'zod'
 
 const formSchema = toTypedSchema(z.object({
-  title: z.string().max(100),
-  genre: z.string().optional()
+  title: z.string().max(100, 'At most 100 charactors'),
+  description: z.string().max(500, 'At most 500 charactors').optional(),
+  charname: z.string().max(100, 'At most 100 charactors')
 }))
 
 const { handleSubmit } = useForm({
@@ -157,14 +152,15 @@ const onSubmit = handleSubmit((values) => {
   console.log('Form submitted!', values)
 })
 
-const dropdownGenre = ref(false)
-const dropdown = ref()
+const listGenre = ref(['Fantasy', 'Science Fiction', 'History', 'Horror'])
 
-function closeDropdown() {
-  dropdownGenre.value = false
+function getSelectValueGenre(value) {
+  console.log('getSelectValueGenre', value)
 }
 
-onClickOutside(dropdown, closeDropdown)
+function getSelectValueCategory(value) {
+  console.log('getSelectValueCategory', value)
+}
 
 
 </script>

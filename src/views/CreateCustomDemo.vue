@@ -93,25 +93,37 @@
                   <FormField name="personality">
                     <FormItem class="mb-8">
                       <FormLabel>Personality</FormLabel>
-                        <div class="flex flex-wrap gap-2 items-center rounded-md border border-input bg-background px-3 py-2 text-sm">
-                          <div 
-                            v-for="(item, index) in listPersonality" 
-                            class="flex h-6 items-center rounded bg-secondary data-[state=active]:ring-ring data-[state=active]:ring-2 data-[state=active]:ring-offset-2 ring-offset-background"
-                          >
-                            <span class="py-1 px-2 text-sm rounded bg-transparent">{{ item }}</span>
-                            <button class="flex rounded bg-transparent mr-1" @click="removeTagItem(index)">
-                              <Plus class="rotate-45" width="16" height="16" />
-                            </button>
-                          </div>
-                          <input 
-                            type="text"
-                            v-model="personalityInput"
-                            class="focus:outline-none" 
-                            placeholder="Personalities ..."
-                            @keypress.exact="pressKey"
-                          >
+                      <div class="flex flex-wrap gap-2 items-center rounded-md border border-input bg-background px-3 py-2 text-sm">
+                        <div 
+                          v-for="(item, index) in listPersonality"
+                          :key="index" 
+                          class="flex h-6 items-center rounded bg-secondary data-[state=active]:ring-ring data-[state=active]:ring-2 data-[state=active]:ring-offset-2 ring-offset-background"
+                        >
+                          <span class="py-1 px-2 text-sm rounded bg-transparent">{{ item }}</span>
+                          <button class="flex rounded bg-transparent mr-1" @click="removeTagItem([index, item], $event)">
+                            <Plus class="rotate-45" width="16" height="16" />
+                          </button>
                         </div>
+                        <input 
+                          type="text"
+                          v-model="personalityInput"
+                          class="focus:outline-none" 
+                          placeholder="Personalities ..."
+                          @keydown.exact="handleKeyInput"
+                        >
+                      </div>
                       <FormMessage />
+                      <div class="flex flex-wrap gap-2 items-center rounded-md border-input bg-background py-2 text-sm">
+                        <button 
+                          v-for="(item, index) in listPersonalityPool"
+                          :key="index" 
+                          @click="addItemFromPool(item)"
+                          class="flex h-6 items-center border border-theme-darklight rounded hover:cursor-pointer hover:bg-theme-light data-[state=active]:ring-ring data-[state=active]:ring-2 data-[state=active]:ring-offset-2 ring-offset-background"
+                        >
+                          <Plus class="ml-1" width="16" height="16" />
+                          <span class="py-1 px-2 mb-[0.125rem] text-sm rounded bg-transparent">{{ item }}</span>
+                        </button>
+                      </div>
                     </FormItem>
                   </FormField>
                 </CardContent>
@@ -173,6 +185,8 @@ const onSubmit = handleSubmit((values) => {
 
 const listGenre = ref(['Fantasy', 'Science Fiction', 'History', 'Horror'])
 const listPersonality = ref([
+])
+const listPersonalityPool = ref([
   'Generous',
   'Funny',
   'Evil',
@@ -188,18 +202,36 @@ function getSelectValueCategory(value) {
   console.log('getSelectValueCategory', value)
 }
 
-function pressKey(e) {
-  if (e.code === 'Comma') {
-    const listPersonalityRaw = toRaw(listPersonality.value).push(personalityInput.value)
-    setTimeout(() => {
-      personalityInput.value = ''
-    }, 0)
-  }
-  
+function handleKeyInput(e) {
+  const listPersonalityRaw = toRaw(listPersonality.value)
+  if (e.code === 'Comma' && personalityInput.value.length > 0) {
+    if (!listPersonalityRaw.includes(personalityInput.value)) {
+      listPersonalityRaw.push(personalityInput.value)
+      setTimeout(() => {
+        personalityInput.value = ''
+      }, 0)
+    } else {
+      setTimeout(() => {
+        nextTick(personalityInput.value = personalityInput.value.substring(0, personalityInput.value.length - 1))
+      }, 0)
+    }
+  } else if (e.code === 'Backspace' && personalityInput.value === '' && listPersonalityRaw.length !== 0) {
+    personalityInput.value = ' '
+    removeTagItem([-1, listPersonalityRaw.slice(-1)[0]])
+  } 
 }
 
-function removeTagItem(index) {
-  const listPersonalityRaw = toRaw(listPersonality.value).splice(index, 1)  
+function addItemFromPool(item) {
+  const listPersonalityRaw = toRaw(listPersonality.value)
+  listPersonalityRaw.push(item)
+  listPersonalityPool.value.splice(listPersonalityPool.value.indexOf(item), 1)
+}
+
+function removeTagItem(value, e) {
+  if ((!e) || (e && e.detail === 1)) {
+    const listPersonalityRaw = toRaw(listPersonality.value).splice(value[0], 1)  
+    listPersonalityPool.value.push(value[1])
+  }
 }
 
 

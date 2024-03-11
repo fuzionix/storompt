@@ -2,7 +2,7 @@
   <section 
     id="info-panel" 
     :class="store.infomenuStatus ? 'right-0' : 'right-[calc(var(--info)*-1)]'"
-    class="absolute top-0 z-20 max-w-[--info] overflow-y-scroll w-full h-full border-l border-theme-grid duration-300 bg-white xl:right-0"
+    class="absolute top-0 z-20 max-w-[--info] overflow-y-auto w-full h-full border-l border-theme-grid duration-300 bg-white xl:right-0"
   >
     <section id="panel-header" class="fixed w-[--info] h-[--header] border-b border-r border-theme-grid bg-white z-10 sm:w-full">
       <div class="absolute flex w-full h-full px-7 justify-between items-center">

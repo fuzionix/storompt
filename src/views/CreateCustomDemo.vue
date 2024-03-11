@@ -60,10 +60,29 @@
                   <FormField v-slot="{ componentField }" name="description">
                     <FormItem class="mb-8">
                       <FormLabel>Story Description (Optional)</FormLabel>
-                      <CardDescription>Make one or two sentences to describe your story background</CardDescription>
+                      <CardDescription>
+                        <span class="text-xs">Please provide a brief background for your story in one or two sentences.</span>
+                      </CardDescription>
                       <FormControl>
                         <Input type="text" class="h-[50px] pl-6 bg-theme-light text-md" placeholder="" v-bind="componentField" maxlength="500" />
                       </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  </FormField>
+                  <FormField v-slot="{ componentField }" name="portrayalBg">
+                    <FormItem>
+                      <FormLabel>Portrayal</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Once upon a time"
+                          rows="4"
+                          class="resize-none"
+                          v-bind="componentField"
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        <span class="text-xs">The portrayal of the charactor will be automatically generated, but you can still make edits to it.</span>
+                      </FormDescription>
                       <FormMessage />
                     </FormItem>
                   </FormField>
@@ -126,6 +145,23 @@
                       </div>
                     </FormItem>
                   </FormField>
+                  <FormField v-slot="{ componentField }" name="portrayalChar">
+                    <FormItem>
+                      <FormLabel>Portrayal of Charactor</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Eldric Shadowforge is a"
+                          rows="4"
+                          class="resize-none"
+                          v-bind="componentField"
+                        />
+                      </FormControl>
+                      <FormDescription>
+                        <span class="text-xs">The portrayal of the story will be automatically generated, but you can still make edits to it.</span>
+                      </FormDescription>
+                      <FormMessage />
+                    </FormItem>
+                  </FormField>
                 </CardContent>
                 <CardFooter class="text-xs text-theme-black opacity-65">
                   Card Footer
@@ -157,7 +193,7 @@ import { Button } from '@/src/components_shadcn/ui/button'
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from '@/src/components_shadcn/ui/card'
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/src/components_shadcn/ui/form'
 import { Input } from '@/src/components_shadcn/ui/input'
-
+import { Textarea } from '@/src/components_shadcn/ui/textarea'
 
 import { 
   BookOpenText, 
@@ -172,7 +208,8 @@ import * as z from 'zod'
 const formSchema = toTypedSchema(z.object({
   title: z.string().max(100, 'At most 100 charactors'),
   description: z.string().max(500, 'At most 500 charactors').optional(),
-  charname: z.string().max(100, 'At most 100 charactors')
+  portrayalBg: z.string().max(1000, 'At most 1000 charactors').optional(),
+  charname: z.string().max(100, 'At most 100 charactors'),
 }))
 
 const { handleSubmit } = useForm({

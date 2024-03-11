@@ -169,6 +169,8 @@ import {
   AlertDialogTitle,
   AlertDialogTrigger,
 } from '@/src/components_shadcn/ui/alert-dialog'
+import { Button } from '@/src/components_shadcn/ui/button'
+import { useToast } from '@/src/components_shadcn/ui/toast/use-toast'
 
 import { useStatusStore } from '@/src/store/useStatusStore'
 import { ref } from 'vue'
@@ -189,7 +191,8 @@ export default {
       AlertDialogHeader,
       AlertDialogTitle,
       AlertDialogTrigger,
-      RefreshCcw
+      RefreshCcw,
+      Button
     },
     props: [
     ],
@@ -210,6 +213,7 @@ export default {
         animateText: [],
         userTextInput: '',
         isLeaving: false, // TODO
+        toast: useToast().toast
       }
     },
     computed: {

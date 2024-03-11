@@ -1,10 +1,15 @@
 <template>
   <router-view></router-view>
+  <Toaster />
 </template>
 
 <script>
+import Toaster from '@/src/components_shadcn/ui/toast/Toaster.vue'
 export default {
   name: 'App',
+  components: {
+    Toaster
+  },
   metaInfo: {
     meta: [
       {

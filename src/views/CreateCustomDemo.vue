@@ -57,41 +57,12 @@
                       </FormItem>
                     </FormField>
                   </div>
-                  <FormField v-slot="{ componentField }" name="description">
-                    <FormItem class="mb-8">
-                      <FormLabel>Story Description (Optional)</FormLabel>
-                      <CardDescription>
-                        <span class="text-xs">Please provide a brief background for your story in one or two sentences.</span>
-                      </CardDescription>
-                      <FormControl>
-                        <Input type="text" class="h-[50px] pl-6 bg-theme-light text-md" placeholder="" v-bind="componentField" maxlength="500" />
-                      </FormControl>
-                      <FormMessage />
-                    </FormItem>
-                  </FormField>
-                  <FormField v-slot="{ componentField }" name="portrayalBg">
-                    <FormItem>
-                      <FormLabel>Portrayal</FormLabel>
-                      <FormControl>
-                        <Textarea
-                          placeholder="Once upon a time"
-                          rows="4"
-                          class="resize-none"
-                          v-bind="componentField"
-                        />
-                      </FormControl>
-                      <FormDescription>
-                        <span class="text-xs">The portrayal of the charactor will be automatically generated, but you can still make edits to it.</span>
-                      </FormDescription>
-                      <FormMessage />
-                    </FormItem>
-                  </FormField>
                 </CardContent>
                 <CardFooter class="text-xs text-theme-black opacity-65">
                   Card Footer
                 </CardFooter>
               </Card>
-              <Card>
+              <Card class="mb-6">
                 <CardHeader>
                   <CardTitle class="font-semibold text-base">
                     <VenetianMask class="mb-2" />
@@ -112,7 +83,7 @@
                   <FormField name="personality">
                     <FormItem class="mb-8">
                       <FormLabel>Personality</FormLabel>
-                      <div class="flex flex-wrap gap-2 items-center rounded-md border border-input bg-background px-3 py-2 text-sm">
+                      <div class="flex flex-wrap gap-2 items-center rounded-md border border-theme-gray bg-background px-3 py-2 text-sm">
                         <div 
                           v-for="(item, index) in listPersonality"
                           :key="index" 
@@ -145,27 +116,38 @@
                       </div>
                     </FormItem>
                   </FormField>
-                  <FormField v-slot="{ componentField }" name="portrayalChar">
+                </CardContent>
+                <CardFooter class="text-xs text-theme-black opacity-65">
+                  Card Footer
+                </CardFooter>
+              </Card>
+              <Card>
+                <CardHeader>
+                  <CardTitle class="font-semibold text-base">
+                    <BookImage class="mb-2" />
+                    <span>Portrayal</span>
+                  </CardTitle>
+                  <CardDescription>Card Description</CardDescription>
+                </CardHeader>
+                <CardContent>
+                  <FormField v-slot="{ componentField }" name="portrayal">
                     <FormItem>
-                      <FormLabel>Portrayal of Charactor</FormLabel>
+                      <FormLabel>AI Generated Portrayal</FormLabel>
                       <FormControl>
                         <Textarea
-                          placeholder="Eldric Shadowforge is a"
-                          rows="4"
-                          class="resize-none"
+                          placeholder="once upon a time"
+                          rows="8"
+                          class="resize-none border-theme-gray"
                           v-bind="componentField"
                         />
                       </FormControl>
                       <FormDescription>
-                        <span class="text-xs">The portrayal of the story will be automatically generated, but you can still make edits to it.</span>
+                        <span class="text-xs">The portrayal will be automatically generated, but you can still make edits to it.</span>
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
                   </FormField>
                 </CardContent>
-                <CardFooter class="text-xs text-theme-black opacity-65">
-                  Card Footer
-                </CardFooter>
               </Card>
               <Button 
                 type="submit"
@@ -198,7 +180,8 @@ import { Textarea } from '@/src/components_shadcn/ui/textarea'
 import { 
   BookOpenText, 
   VenetianMask,
-  Plus  
+  Plus,
+  BookImage  
 } from 'lucide-vue-next'
 
 import { toTypedSchema } from '@vee-validate/zod'
@@ -207,8 +190,7 @@ import * as z from 'zod'
 
 const formSchema = toTypedSchema(z.object({
   title: z.string().max(100, 'At most 100 charactors'),
-  description: z.string().max(500, 'At most 500 charactors').optional(),
-  portrayalBg: z.string().max(1000, 'At most 1000 charactors').optional(),
+  portrayal: z.string().max(1000, 'At most 1000 charactors').optional(),
   charname: z.string().max(100, 'At most 100 charactors'),
 }))
 

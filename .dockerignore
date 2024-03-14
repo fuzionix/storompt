@@ -1,0 +1,39 @@
+# Ignore development and system files
+node_modules
+.env
+.env.*
+*.log
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+staticfiles
+db.sqlite3
+
+# Ignore Vue.js build artifacts
+/dist
+/build
+
+# Ignore Django specific files
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.bak
+*.db
+*.sqlite3
+*.pyc
+*.pyo
+*.pyd
+*.swp
+*.bak
+
+# Ignore Docker specific files
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Ignore version control directories and files
+.git
+.gitignore
+.svn

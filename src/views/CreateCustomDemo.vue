@@ -107,7 +107,7 @@
                         <button 
                           v-for="(item, index) in listPersonalityPool"
                           :key="index" 
-                          @click="addItemFromPool(item)"
+                          @click.prevent="addItemFromPool(item)"
                           class="flex h-6 items-center border border-theme-darklight rounded hover:cursor-pointer hover:bg-theme-light data-[state=active]:ring-ring data-[state=active]:ring-2 data-[state=active]:ring-offset-2 ring-offset-background"
                         >
                           <Plus class="ml-1" width="16" height="16" />
@@ -188,6 +188,8 @@ import { toTypedSchema } from '@vee-validate/zod'
 import { useForm } from 'vee-validate'
 import * as z from 'zod'
 
+import axios from 'axios'
+
 const formSchema = toTypedSchema(z.object({
   title: z.string().max(100, 'At most 100 charactors'),
   portrayal: z.string().max(1000, 'At most 1000 charactors').optional(),
@@ -199,9 +201,11 @@ const { handleSubmit } = useForm({
 })
 
 const onSubmit = handleSubmit((values) => {
-  console.log('Form submitted!', values)
+  createStory(values)
 })
 
+const optionGenre = ref('')
+const optionCategory = ref('')
 const listGenre = ref(['Fantasy', 'Science Fiction', 'History', 'Horror'])
 const listPersonality = ref([
 ])
@@ -214,11 +218,11 @@ const listPersonalityPool = ref([
 const personalityInput = ref('')
 
 function getSelectValueGenre(value) {
-  console.log('getSelectValueGenre', value)
+  optionGenre.value = value
 }
 
 function getSelectValueCategory(value) {
-  console.log('getSelectValueCategory', value)
+  optionCategory.value = value
 }
 
 function handleKeyInput(e) {
@@ -251,6 +255,38 @@ function removeTagItem(value, e) {
     const listPersonalityRaw = toRaw(listPersonality.value).splice(value[0], 1)  
     listPersonalityPool.value.push(value[1])
   }
+}
+
+function createStory(formValues) {
+  const storyInfo = {
+    background: {
+      title: formValues['title'],
+      genre: optionGenre.value,
+      category: optionCategory.value
+    },
+    charactors: [
+      {
+        charname: formValues['charname'],
+        personality: toRaw(listPersonality.value)
+      }
+    ],
+    portrayal: {
+      content: formValues['portrayal']
+    }
+  }
+
+  axios({
+    method: 'post',
+    url: 'http://127.0.0.1:8000/chat/create-item',
+    data: {
+      type: 'custom',
+      storyInfo: storyInfo
+    }
+  }).then((res) => {
+    console.log(res)
+  }).catch((error) => {
+    console.log(error)
+  })
 }
 
 

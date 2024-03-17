@@ -50,7 +50,7 @@
                       <FormItem class="mb-8 flex-1 sm:pl-4">
                         <FormLabel>Catergory</FormLabel>
                         <Selector 
-                          :listItem="listGenre" 
+                          :listItem="listCategory" 
                           @getSelectValue="getSelectValueCategory"
                           placeholder="Select Category"
                         ></Selector>
@@ -134,12 +134,25 @@
                     <FormItem>
                       <FormLabel>AI Generated Portrayal</FormLabel>
                       <FormControl>
-                        <Textarea
-                          placeholder="once upon a time"
-                          rows="8"
-                          class="resize-none border-theme-gray"
-                          v-bind="componentField"
-                        />
+                        <div :data-state="portrayalState" class="relative data-[state=hidden]:border data-[state=hidden]:border-theme-gray data-[state=hidden]:rounded-md">
+                          <Textarea
+                            placeholder="once upon a time"
+                            rows="8"
+                            :data-state="portrayalState"
+                            class="resize-none border-theme-gray data-[state=hidden]:blur data-[state=hidden]:pointer-events-none"
+                            v-bind="componentField"
+                          />
+                          <Button 
+                            v-if="portrayalState === 'hidden'"
+                            @click.prevent="previewPortrayal()"
+                            variant="outline"
+                            class="absolute flex items-center left-[50%] top-[50%] translate-x-[-50%] translate-y-[-50%] h-[45px] before:duration-200"
+                          >
+                            <View class="mr-2" width="20" height="20" :strokeWidth="1.5"/>
+                            <p class="pb-[1px]">Preview</p>
+                          </Button>
+                        </div>
+                        
                       </FormControl>
                       <FormDescription>
                         <span class="text-xs">The portrayal will be automatically generated, but you can still make edits to it.</span>
@@ -167,6 +180,7 @@
 
 <script setup>
 import { ref, toRaw, nextTick } from 'vue'
+import { useRouter } from 'vue-router'
 
 import NavigationBar from '@/src/components/NavigationBar.vue'
 import Selector from '@/src/components/Selector.vue'
@@ -176,12 +190,14 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { FormControl, FormDescription, FormField, FormItem, FormLabel, FormMessage } from '@/src/components_shadcn/ui/form'
 import { Input } from '@/src/components_shadcn/ui/input'
 import { Textarea } from '@/src/components_shadcn/ui/textarea'
+import { useToast } from '@/src/components_shadcn/ui/toast/use-toast'
 
 import { 
   BookOpenText, 
   VenetianMask,
   Plus,
-  BookImage  
+  BookImage,
+  View   
 } from 'lucide-vue-next'
 
 import { toTypedSchema } from '@vee-validate/zod'
@@ -189,6 +205,9 @@ import { useForm } from 'vee-validate'
 import * as z from 'zod'
 
 import axios from 'axios'
+
+const router = useRouter()
+const { toast } = useToast()
 
 const formSchema = toTypedSchema(z.object({
   title: z.string().max(100, 'At most 100 charactors'),
@@ -200,13 +219,23 @@ const { handleSubmit } = useForm({
   validationSchema: formSchema,
 })
 
-const onSubmit = handleSubmit((values) => {
-  createStory(values)
-})
-
 const optionGenre = ref('')
 const optionCategory = ref('')
-const listGenre = ref(['Fantasy', 'Science Fiction', 'History', 'Horror'])
+const listGenre = ref([
+  'Fantasy', 
+  'Science Fiction', 
+  'Mystery',
+  'Romance',
+  'Adventure',
+  'Historical Fiction',
+  'Thriller', 
+  'Horror',
+  'Comedy',
+  'Drama'
+])
+const listCategory = ref([
+  'Multiple Charactors'
+])
 const listPersonality = ref([
 ])
 const listPersonalityPool = ref([
@@ -216,6 +245,15 @@ const listPersonalityPool = ref([
   'Approachable'
 ])
 const personalityInput = ref('')
+const portrayalState = ref('hidden')
+
+const onSubmit = handleSubmit((values) => {
+  createStory(values)
+})
+
+const previewPortrayal = handleSubmit((values) => {
+  portrayalState.value = ''
+})
 
 function getSelectValueGenre(value) {
   optionGenre.value = value
@@ -258,6 +296,15 @@ function removeTagItem(value, e) {
 }
 
 function createStory(formValues) {
+  // assign default value
+  if (!optionGenre.value) {
+    optionGenre.value = listGenre.value[0]
+  }
+
+  if (!optionCategory.value) {
+    optionCategory.value = listCategory.value[0]
+  }
+
   const storyInfo = {
     background: {
       title: formValues['title'],
@@ -283,9 +330,14 @@ function createStory(formValues) {
       storyInfo: storyInfo
     }
   }).then((res) => {
-    console.log(res)
+    const data = res.data
+    router.push(`/demo/${data['id']}`)
   }).catch((error) => {
-    console.log(error)
+    toast({
+      variant: 'destructive',
+      title: 'Failed To Create Story',
+      description: error,
+    });
   })
 }
 

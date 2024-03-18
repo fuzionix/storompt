@@ -90,7 +90,7 @@
                           class="flex h-6 items-center rounded bg-secondary data-[state=active]:ring-ring data-[state=active]:ring-2 data-[state=active]:ring-offset-2 ring-offset-background"
                         >
                           <span class="py-1 px-2 text-sm rounded bg-transparent">{{ item }}</span>
-                          <button class="flex rounded bg-transparent mr-1" @click="removeTagItem([index, item], $event)">
+                          <button class="flex rounded bg-transparent mr-1" @click.prevent="removeTagItem([index, item], $event)">
                             <Plus class="rotate-45" width="16" height="16" />
                           </button>
                         </div>
@@ -139,8 +139,8 @@
                             placeholder="once upon a time"
                             rows="8"
                             :data-state="portrayalState"
+                            v-model="portrayalValue"
                             class="resize-none border-theme-gray data-[state=hidden]:blur data-[state=hidden]:pointer-events-none"
-                            v-bind="componentField"
                           />
                           <Button 
                             v-if="portrayalState === 'hidden'"
@@ -211,7 +211,6 @@ const { toast } = useToast()
 
 const formSchema = toTypedSchema(z.object({
   title: z.string().max(100, 'At most 100 charactors'),
-  portrayal: z.string().max(1000, 'At most 1000 charactors').optional(),
   charname: z.string().max(100, 'At most 100 charactors'),
 }))
 
@@ -239,13 +238,29 @@ const listCategory = ref([
 const listPersonality = ref([
 ])
 const listPersonalityPool = ref([
-  'Generous',
+  'Brave',
+  'Arrogant',
+  'Intelligent',
+  'Manipulative',
+  'Ambitious',
+  'Greedy',
+  'Creative',
+  'Jealous',
   'Funny',
-  'Evil',
-  'Approachable'
+  'Loyal',
+  'Shy',
+  'Adventurous',
+  'Charming',
+  'Optimistic',
+  'Independent',
+  'Selfless',
+  'Curious',
+  'Trustworthy',
+  'Honest',
 ])
 const personalityInput = ref('')
 const portrayalState = ref('hidden')
+const portrayalValue = ref('')
 
 const onSubmit = handleSubmit((values) => {
   createStory(values)
@@ -253,6 +268,7 @@ const onSubmit = handleSubmit((values) => {
 
 const previewPortrayal = handleSubmit((values) => {
   portrayalState.value = ''
+  createPortrayal(values)
 })
 
 function getSelectValueGenre(value) {
@@ -295,6 +311,52 @@ function removeTagItem(value, e) {
   }
 }
 
+function createPortrayal(formValues) {
+  // assign default value
+  if (!optionGenre.value) {
+    optionGenre.value = listGenre.value[0]
+  }
+
+  if (!optionCategory.value) {
+    optionCategory.value = listCategory.value[0]
+  }
+
+  const storyInfo = {
+    background: {
+      title: formValues['title'],
+      genre: optionGenre.value,
+      category: optionCategory.value
+    },
+    charactors: [
+      {
+        charname: formValues['charname'],
+        personality: toRaw(listPersonality.value)
+      }
+    ],
+    portrayal: {
+      content: portrayalValue.value
+    }
+  }
+
+  axios({
+    method: 'post',
+    url: 'http://127.0.0.1:8000/chat/create-portrayal',
+    data: {
+      storyInfo: storyInfo
+    }
+  }).then((res) => {
+    const data = res.data
+    portrayalValue.value = data['portrayal']
+  }).catch((error) => {
+    portrayalState.value = 'hidden'
+    toast({
+      variant: 'destructive',
+      title: 'Failed To Generate Portrayal',
+      description: error,
+    })
+  })
+}
+
 function createStory(formValues) {
   // assign default value
   if (!optionGenre.value) {
@@ -318,7 +380,7 @@ function createStory(formValues) {
       }
     ],
     portrayal: {
-      content: formValues['portrayal']
+      content: portrayalValue.value
     }
   }
 
@@ -337,7 +399,7 @@ function createStory(formValues) {
       variant: 'destructive',
       title: 'Failed To Create Story',
       description: error,
-    });
+    })
   })
 }
 

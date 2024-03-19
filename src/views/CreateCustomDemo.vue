@@ -58,9 +58,6 @@
                     </FormField>
                   </div>
                 </CardContent>
-                <CardFooter class="text-xs text-theme-black opacity-65">
-                  Card Footer
-                </CardFooter>
               </Card>
               <Card class="mb-6">
                 <CardHeader>
@@ -130,16 +127,25 @@
                   <CardDescription>Card Description</CardDescription>
                 </CardHeader>
                 <CardContent>
-                  <FormField v-slot="{ componentField }" name="portrayal">
+                  <FormField name="portrayal">
                     <FormItem>
-                      <FormLabel>AI Generated Portrayal</FormLabel>
+                      <div class="flex justify-between items-center">
+                        <FormLabel>AI Generated Portrayal</FormLabel>
+                        <button 
+                          class="hover:-rotate-180 duration-200"
+                          @click.prevent="previewPortrayal()"
+                        >
+                          <RotateCcw width="16" height="16" />
+                        </button>
+                      </div>
+                      
                       <FormControl>
                         <div :data-state="portrayalState" class="relative data-[state=hidden]:border data-[state=hidden]:border-theme-gray data-[state=hidden]:rounded-md">
                           <Textarea
-                            placeholder="once upon a time"
+                            :placeholder="portrayalLoading ? 'Loading ...' : 'once upon a time'"
                             rows="8"
                             :data-state="portrayalState"
-                            v-model="portrayalValue"
+                            v-model.trim="portrayalValue"
                             class="resize-none border-theme-gray data-[state=hidden]:blur data-[state=hidden]:pointer-events-none"
                           />
                           <Button 
@@ -197,7 +203,8 @@ import {
   VenetianMask,
   Plus,
   BookImage,
-  View   
+  View,
+  RotateCcw    
 } from 'lucide-vue-next'
 
 import { toTypedSchema } from '@vee-validate/zod'
@@ -235,8 +242,7 @@ const listGenre = ref([
 const listCategory = ref([
   'Multiple Charactors'
 ])
-const listPersonality = ref([
-])
+const listPersonality = ref([])
 const listPersonalityPool = ref([
   'Brave',
   'Arrogant',
@@ -261,6 +267,7 @@ const listPersonalityPool = ref([
 const personalityInput = ref('')
 const portrayalState = ref('hidden')
 const portrayalValue = ref('')
+const portrayalLoading = ref(false)
 
 const onSubmit = handleSubmit((values) => {
   createStory(values)
@@ -312,77 +319,34 @@ function removeTagItem(value, e) {
 }
 
 function createPortrayal(formValues) {
-  // assign default value
-  if (!optionGenre.value) {
-    optionGenre.value = listGenre.value[0]
-  }
-
-  if (!optionCategory.value) {
-    optionCategory.value = listCategory.value[0]
-  }
-
-  const storyInfo = {
-    background: {
-      title: formValues['title'],
-      genre: optionGenre.value,
-      category: optionCategory.value
-    },
-    charactors: [
-      {
-        charname: formValues['charname'],
-        personality: toRaw(listPersonality.value)
+  if (!portrayalLoading.value) {
+    portrayalLoading.value = true
+    portrayalValue.value = ''
+    const storyInfo = getStoryInfo(formValues)
+    axios({
+      method: 'post',
+      url: 'http://127.0.0.1:8000/chat/create-portrayal',
+      data: {
+        storyInfo: storyInfo
       }
-    ],
-    portrayal: {
-      content: portrayalValue.value
-    }
-  }
-
-  axios({
-    method: 'post',
-    url: 'http://127.0.0.1:8000/chat/create-portrayal',
-    data: {
-      storyInfo: storyInfo
-    }
-  }).then((res) => {
-    const data = res.data
-    portrayalValue.value = data['portrayal']
-  }).catch((error) => {
-    portrayalState.value = 'hidden'
-    toast({
-      variant: 'destructive',
-      title: 'Failed To Generate Portrayal',
-      description: error,
+    }).then((res) => {
+      const data = res.data
+      portrayalValue.value = data['portrayal']
+    }).catch((error) => {
+      portrayalState.value = 'hidden'
+      toast({
+        variant: 'destructive',
+        title: 'Failed To Generate Portrayal',
+        description: error,
+      })
+    }).finally(() => {
+      portrayalLoading.value = false
     })
-  })
+  }
 }
 
 function createStory(formValues) {
-  // assign default value
-  if (!optionGenre.value) {
-    optionGenre.value = listGenre.value[0]
-  }
-
-  if (!optionCategory.value) {
-    optionCategory.value = listCategory.value[0]
-  }
-
-  const storyInfo = {
-    background: {
-      title: formValues['title'],
-      genre: optionGenre.value,
-      category: optionCategory.value
-    },
-    charactors: [
-      {
-        charname: formValues['charname'],
-        personality: toRaw(listPersonality.value)
-      }
-    ],
-    portrayal: {
-      content: portrayalValue.value
-    }
-  }
+  const storyInfo = getStoryInfo(formValues)
 
   axios({
     method: 'post',
@@ -401,6 +365,36 @@ function createStory(formValues) {
       description: error,
     })
   })
+}
+
+function getStoryInfo(formValues) {
+  // assign default value
+  if (!optionGenre.value) {
+    optionGenre.value = listGenre.value[0]
+  }
+
+  if (!optionCategory.value) {
+    optionCategory.value = listCategory.value[0]
+  }
+
+  const storyInfo = {
+    background: {
+      title: formValues['title'],
+      genre: optionGenre.value,
+      category: optionCategory.value
+    },
+    charactors: [
+      {
+        charname: formValues['charname'],
+        personality: toRaw(listPersonality.value)
+      }
+    ],
+    portrayal: {
+      content: portrayalValue.value
+    }
+  }
+
+  return storyInfo
 }
 
 

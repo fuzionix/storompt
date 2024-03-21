@@ -49,7 +49,7 @@
               class="flex items-end w-full max-w-[768px] py-4 animate-bubble-fade-in"
             >
               <div id="avatar-l" class="w-8">
-                <img v-if="!chat.user" src="@/src/assets/avatar/avatar_ai_2.svg" alt="">
+                <img v-if="!chat.user" src="@/src/assets/avatar/Shape=1, Color=Bellflower.svg" alt="">
               </div>
               <div 
                 id="message-bubble" 
@@ -94,7 +94,7 @@
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
-                <img v-if="chat.user" src="@/src/assets/avatar/avatar_me.svg" alt="">
+                <img v-if="chat.user" src="@/src/assets/avatar/Shape=1, Color=Fennel Flower.svg" alt="">
               </div>
             </div>
 

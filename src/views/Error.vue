@@ -6,7 +6,7 @@
       <!-- Display Chat Block -->
       <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
         <div id="avatar-l" class="w-8">
-          <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
+          <img src="@/src/assets/avatar/Shape=5, Color=Infrared.svg" class="" alt="">
         </div>
         <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
           <h5 class="mb-2 text-sm font-semibold">System Bot</h5>
@@ -30,13 +30,13 @@
           </div>
         </div>
         <div id="avatar-r" class="w-8">
-          <img src="@/src/assets/avatar/avatar_me.svg" class="" alt="">
+          <img src="@/src/assets/avatar/Shape=1, Color=Rajah.svg" class="" alt="">
         </div>
       </div>
 
       <div id="message-block" class="flex items-end w-full max-w-[768px] py-4">
         <div id="avatar-l" class="w-8">
-          <img src="@/src/assets/avatar/avatar_ai_2.svg" class="" alt="">
+          <img src="@/src/assets/avatar/Shape=5, Color=Infrared.svg" class="" alt="">
         </div>
         <div id="message-bubble" class="flex flex-col items-start flex-1 mx-3">
           <h5 class="mb-2 text-sm font-semibold">System Bot</h5>

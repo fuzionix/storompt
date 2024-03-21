@@ -99,7 +99,7 @@
     <section id="profile-panel" class="fixed bottom-0 w-[--menu] h-[--header] border-t border-r bg-white z-10">
       <div class="flex justify-between items-center h-full w-full px-7">
         <button class="-mr-4">
-          <img src="@/src/assets/avatar/avatar_me.svg" class="w-10" alt="">
+          <img src="@/src/assets/avatar/Shape=1, Color=Rajah.svg" class="w-10" alt="">
         </button>
         <div class="">
           <h3 class="text-sm font-semibold">Taylon Chan</h3>

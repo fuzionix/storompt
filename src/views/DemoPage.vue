@@ -243,6 +243,7 @@ export default {
         this.chatItem['genre'] = this.data['genre']
         this.chatItem['classification'] = this.data['classification']
         this.chatItem['background'] = this.data['background']
+        this.chatItem['charactor'] = this.data['charactor']
         this.chatItem['chat_history'] = this.data['chat_history']
         if (this.chatItem['chat_history']) {
           this.chatHistory = JSON.parse(this.chatItem['chat_history'])
@@ -327,6 +328,8 @@ export default {
             url: `http://127.0.0.1:8000/chat/${this.$route.params.demoId}`,
             data: {
               userTextInput: textInput,
+              targetName: this.chatItem['charactor'],
+              background: this.chatItem['background'],
               chatHistory: JSON.stringify(this.chatHistory.slice(0, -1))
             }
           }).then((res) => {

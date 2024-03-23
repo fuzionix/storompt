@@ -173,7 +173,15 @@
                 class="relative w-full mt-8 h-[50px] before:duration-200 before:content-[url('@/src/assets/icon/game.svg')] 
                 before:absolute before:left-0 before:top-0 before:translate-x-[-50%] before:translate-y-[-50%] hover:before:scale-125"
               >
-                Create Story
+                <img 
+                  v-if="storyLoading"
+                  src="@/src/assets/icon/loader.svg" 
+                  class=""
+                  alt="" 
+                  width="24"
+                >
+                <p v-if="storyLoading">Generating ...</p>
+                <p v-else>Create Story</p>
               </Button>
             </form>
           </div>
@@ -268,6 +276,7 @@ const personalityInput = ref('')
 const portrayalState = ref('hidden')
 const portrayalValue = ref('')
 const portrayalLoading = ref(false)
+const storyLoading = ref(false)
 
 const onSubmit = handleSubmit((values) => {
   createStory(values)
@@ -318,37 +327,27 @@ function removeTagItem(value, e) {
   }
 }
 
-function createPortrayal(formValues) {
+async function createPortrayal(formValues) {
   if (!portrayalLoading.value) {
     portrayalLoading.value = true
     portrayalValue.value = ''
     const storyInfo = getStoryInfo(formValues)
-    axios({
-      method: 'post',
-      url: 'http://127.0.0.1:8000/chat/create-portrayal',
-      data: {
-        storyInfo: storyInfo
-      }
-    }).then((res) => {
-      const data = res.data
-      portrayalValue.value = data['portrayal']
-    }).catch((error) => {
-      portrayalState.value = 'hidden'
-      toast({
-        variant: 'destructive',
-        title: 'Failed To Generate Portrayal',
-        description: error,
-      })
-    }).finally(() => {
-      portrayalLoading.value = false
-    })
+    await createPortrayalAxios(storyInfo)
   }
 }
 
-function createStory(formValues) {
-  const storyInfo = getStoryInfo(formValues)
+async function createStory(formValues) {
+  let storyInfo = getStoryInfo(formValues)
 
-  axios({
+  if (storyInfo['portrayal']['content'].trim().length === 0) {
+    storyLoading.value = true
+    await createPortrayalAxios(storyInfo)
+    storyLoading.value = false
+    storyInfo = getStoryInfo(formValues)
+  }
+
+  storyLoading.value = true
+  await axios({
     method: 'post',
     url: 'http://127.0.0.1:8000/chat/create-item',
     data: {
@@ -364,6 +363,29 @@ function createStory(formValues) {
       title: 'Failed To Create Story',
       description: error,
     })
+  })
+  storyLoading.value = false
+}
+
+function createPortrayalAxios(storyInfo) {
+  return axios({
+    method: 'post',
+    url: 'http://127.0.0.1:8000/chat/create-portrayal',
+    data: {
+      storyInfo: storyInfo
+    }
+  }).then((res) => {
+    const data = res.data
+    portrayalValue.value = data['portrayal']
+  }).catch((error) => {
+    portrayalState.value = 'hidden'
+    toast({
+      variant: 'destructive',
+      title: 'Failed To Generate Portrayal',
+      description: error,
+    })
+  }).finally(() => {
+    portrayalLoading.value = false
   })
 }
 

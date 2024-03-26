@@ -33,7 +33,43 @@
           </button>
         </div>
         <div v-if="tabState.charactor" value="charactor">
-          This is charactor section
+          <div class="p-7">
+            <button class="flex items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light">
+              <div class="pr-4 border-r border-theme-gray">
+                <img src="@/src/assets/avatar/Shape=1, Color=Bellflower.svg" class="w-8" alt="">
+              </div>
+              <div class="flex-1 pl-4 text-left">
+                <h5 class="text-sm font-semibold">Peter Park</h5>
+                <p class="text-xs opacity-70">Funny, Shy</p>
+              </div>
+            </button>
+            <button class="flex items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light">
+              <div class="pr-4 border-r border-theme-gray">
+                <img src="@/src/assets/avatar/Shape=1, Color=Bellflower.svg" class="w-8" alt="">
+              </div>
+              <div class="flex-1 pl-4 text-left">
+                <h5 class="text-sm font-semibold">Peter Park</h5>
+                <p class="text-xs opacity-70">Funny, Shy</p>
+              </div>
+            </button>
+            <button class="flex items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light">
+              <div class="pr-4 border-r border-theme-gray">
+                <img src="@/src/assets/avatar/Shape=1, Color=Bellflower.svg" class="w-8" alt="">
+              </div>
+              <div class="flex-1 pl-4 text-left">
+                <h5 class="text-sm font-semibold">Peter Park</h5>
+                <p class="text-xs opacity-70">Funny, Shy</p>
+              </div>
+            </button>
+            <button class="flex justify-center items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light">
+              <div class="pr-4 border-r border-theme-gray">
+                <UserRoundPlus :size="24" :strokeWidth="1" />
+              </div>
+              <div class="pl-4">
+                <h5 class="text-xs font-semibold">Add New Charactor</h5>
+              </div>
+            </button>
+          </div>
         </div>
         <div v-if="tabState.background" id="background">
           <div class="p-7">
@@ -66,10 +102,12 @@
 <script>
 import { useStatusStore } from '@/src/store/useStatusStore'
 
+import { UserRoundPlus } from 'lucide-vue-next';
+
 export default {
     name: 'InfoPanel',
     components: {
-
+      UserRoundPlus 
     },
     props: [
       'chatItem'

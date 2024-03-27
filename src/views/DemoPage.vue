@@ -49,7 +49,7 @@
               class="flex items-end w-full max-w-[768px] py-4 animate-bubble-fade-in"
             >
               <div id="avatar-l" class="w-8">
-                <img v-if="!chat.user" src="@/src/assets/avatar/Shape=1, Color=Bellflower.svg" alt="">
+                <img v-if="!chat.user" src="@/src/assets/avatar/Shape=10, Color=Fennel Flower.svg" alt="">
               </div>
               <div 
                 id="message-bubble" 
@@ -94,7 +94,7 @@
                 </div>
               </div>
               <div id="avatar-r" class="w-8">
-                <img v-if="chat.user" src="@/src/assets/avatar/Shape=1, Color=Fennel Flower.svg" alt="">
+                <img v-if="chat.user" src="@/src/assets/avatar/Shape=10, Color=Lavender.svg" alt="">
               </div>
             </div>
 
@@ -135,26 +135,14 @@
     <info-panel :chatItem="chatItem" />
   </section>
 
-  <!-- <AlertDialog :open="isLeaving">
-    <AlertDialogContent class="min-h-[150px]">
-      <AlertDialogHeader>
-        <AlertDialogTitle>Are you sure you want to leave?</AlertDialogTitle>
-        <AlertDialogDescription>
-          This action cannot be undone. This will permanently delete your
-          story and remove your data from our servers.
-        </AlertDialogDescription>
-      </AlertDialogHeader>
-      <AlertDialogFooter>
-        <AlertDialogCancel>Cancel</AlertDialogCancel>
-        <AlertDialogAction>Confirm</AlertDialogAction>
-      </AlertDialogFooter>
-    </AlertDialogContent>
-  </AlertDialog> -->
+  <Dialog :storyId="this.chatItem['story_id']" @updateCharList="updateCharList()"></Dialog>
+
 </template>
 
 <script>
 import Sidemenu from '@/src/components/Sidemenu.vue'
 import InfoPanel from '@/src/components/InfoPanel.vue'
+import Dialog from '@/src/components/Dialog.vue'
 
 import { RefreshCcw } from 'lucide-vue-next';
 
@@ -192,7 +180,8 @@ export default {
       AlertDialogTitle,
       AlertDialogTrigger,
       RefreshCcw,
-      Button
+      Button,
+      Dialog
     },
     props: [
     ],
@@ -238,6 +227,7 @@ export default {
         }
       }).then((res) => {
         this.data = res.data
+        this.chatItem['story_id'] = this.data['story_id']
         this.chatItem['title'] = this.data['title']
         this.chatItem['title_description'] = this.data['title_description']
         this.chatItem['genre'] = this.data['genre']
@@ -328,7 +318,7 @@ export default {
             url: `http://127.0.0.1:8000/chat/${this.$route.params.demoId}`,
             data: {
               userTextInput: textInput,
-              targetName: this.chatItem['charactor'],
+              targetName: JSON.parse(this.chatItem['charactor'])[0]["name"],
               background: this.chatItem['background'],
               chatHistory: JSON.stringify(this.chatHistory.slice(0, -1))
             }
@@ -380,6 +370,20 @@ export default {
             clearInterval(nInterval)
           }
         }, 50);
+      },
+      updateCharList() {
+        console.log('updateCharList')
+        axios({
+          method: 'get',
+          url: `http://127.0.0.1:8000/chat/get-item/${this.$route.params.demoId}`,
+          data: {
+          }
+        }).then((res) => {
+          this.data = res.data
+          this.chatItem['charactor'] = this.data['charactor']
+        }).catch((error) => {
+          console.error('Error: ', error)
+        })
       }
     }
 }

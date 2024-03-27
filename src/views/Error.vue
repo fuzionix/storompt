@@ -30,7 +30,7 @@
           </div>
         </div>
         <div id="avatar-r" class="w-8">
-          <img src="@/src/assets/avatar/Shape=1, Color=Rajah.svg" class="" alt="">
+          <img src="@/src/assets/avatar/Shape=10, Color=Rajah.svg" class="" alt="">
         </div>
       </div>
 

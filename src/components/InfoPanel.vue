@@ -34,34 +34,29 @@
         </div>
         <div v-if="tabState.charactor" value="charactor">
           <div class="p-7">
-            <button class="flex items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light">
+            <button 
+              v-for="charactor in JSON.parse(chatItem['charactor'])"
+              :key="charactor"
+              class="flex items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light"
+            >
               <div class="pr-4 border-r border-theme-gray">
-                <img src="@/src/assets/avatar/Shape=1, Color=Bellflower.svg" class="w-8" alt="">
+                <img src="@/src/assets/avatar/Shape=10, Color=Fennel Flower.svg" class="w-8" alt="">
               </div>
               <div class="flex-1 pl-4 text-left">
-                <h5 class="text-sm font-semibold">Peter Park</h5>
-                <p class="text-xs opacity-70">Funny, Shy</p>
+                <h5 class="text-sm font-semibold">{{ charactor['name'] }}</h5>
+                <span 
+                  v-for="personality in charactor['personality'].replace(/\[|\]|\'/g,'').split(',')"
+                  :key="personality"
+                  class="text-xs opacity-70 mr-1 border-b border-theme-gray"
+                >
+                  {{ personality }}
+                </span>
               </div>
             </button>
-            <button class="flex items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light">
-              <div class="pr-4 border-r border-theme-gray">
-                <img src="@/src/assets/avatar/Shape=1, Color=Bellflower.svg" class="w-8" alt="">
-              </div>
-              <div class="flex-1 pl-4 text-left">
-                <h5 class="text-sm font-semibold">Peter Park</h5>
-                <p class="text-xs opacity-70">Funny, Shy</p>
-              </div>
-            </button>
-            <button class="flex items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light">
-              <div class="pr-4 border-r border-theme-gray">
-                <img src="@/src/assets/avatar/Shape=1, Color=Bellflower.svg" class="w-8" alt="">
-              </div>
-              <div class="flex-1 pl-4 text-left">
-                <h5 class="text-sm font-semibold">Peter Park</h5>
-                <p class="text-xs opacity-70">Funny, Shy</p>
-              </div>
-            </button>
-            <button class="flex justify-center items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light">
+            <button 
+              @click="openDialog()"
+              class="flex justify-center items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light"
+            >
               <div class="pr-4 border-r border-theme-gray">
                 <UserRoundPlus :size="24" :strokeWidth="1" />
               </div>
@@ -135,7 +130,10 @@ export default {
             this.tabState[item] = false
           }
         })
-      }
+      },
+      openDialog() {
+        this.store.dialogStatus = true
+      },
     }
 }
 </script>

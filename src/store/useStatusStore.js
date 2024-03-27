@@ -4,7 +4,8 @@ export const useStatusStore = defineStore('menuStatus', {
   state: () => {
     return { 
       sidemenuStatus: true,
-      infomenuStatus: false 
+      infomenuStatus: false,
+      dialogStatus: false 
     }
   },
   getters: {

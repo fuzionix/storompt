@@ -141,7 +141,11 @@
         </div>
       </section>
     </main>
-    <info-panel :chatItem="chatItem" />
+    <info-panel 
+      :chatItem="chatItem"
+      @changeTargetName="changeTargetName"
+      @receiveMessage="receiveMessage"
+    />
   </section>
 
   <Dialog :storyId="this.chatItem['story_id']" @updateCharList="updateCharList()"></Dialog>
@@ -211,6 +215,8 @@ export default {
           title: '',
           title_description: ''
         },
+        targetName: '',
+        personality: '[]',
         chatLoading: false,
         chatLoadingSuccess: true,
         chatHistory: [],
@@ -256,6 +262,12 @@ export default {
         } else {
           throw new Error('No chat history found');
         }
+
+        if (this.chatItem['charactor']) {
+          this.targetName = JSON.parse(this.chatItem['charactor'])[0]['name']
+        }
+
+        console.log('targetName', this.targetName)
         
         this.scrollToBottom()
       }).catch((error) => {
@@ -311,6 +323,8 @@ export default {
             this.chatHistory.pop()
           }
 
+          textInput = textInput.replace(/@(\w+)/g, '').trim()
+
           // insert message into chat history. display new chat bubble automatically
           if (!refresh) {
             this.chatHistory.push({
@@ -334,8 +348,9 @@ export default {
             url: `http://127.0.0.1:8000/chat/${this.$route.params.demoId}`,
             data: {
               userTextInput: textInput,
-              targetName: JSON.parse(this.chatItem['charactor'])[0]["name"],
+              targetName: this.targetName,
               background: this.chatItem['background'],
+              personality: this.personality,
               chatHistory: JSON.stringify(this.chatHistory.slice(0, -1))
             }
           }).then((res) => {
@@ -365,6 +380,56 @@ export default {
           this.scrollToBottom()
         }
         
+      },
+      receiveMessage(name, personality) {
+        if (!this.isActive) {
+          this.isActive = true
+
+          if (this.chatHistory.slice(-1)[0]?.['danger'] == true) {
+            this.chatHistory.pop()
+          }
+
+          this.chatHistory.push({
+            name: '',
+            message: '',
+            user: false
+          })
+
+          this.chatLoading = true
+
+          axios({
+            method: 'post',
+            url: `http://127.0.0.1:8000/chat/receive-message/${this.$route.params.demoId}`,
+            data: {
+              targetName: this.targetName,
+              background: this.chatItem['background'],
+              personality: personality,
+              chatHistory: JSON.stringify(this.chatHistory.slice(0, -1))
+            }
+          }).then((res) => {
+            this.data = res.data
+            Object.assign(this.chatHistory.slice(-1)[0], {
+              name: this.data['name'],
+              message: this.data['message'],
+              user: false
+            })
+            // this.displayText(this.data['message'])
+          }).catch((error) => {
+            Object.assign(this.chatHistory.slice(-1)[0], {
+              name: 'Error System',
+              message: `Someone tell him that the server side have some issues [${error}]`,
+              user: false,
+              danger: true
+            })
+            // this.displayText(this.data['message'])
+          }).finally(() => {
+            this.scrollToBottom()
+            this.isActive = false
+            this.chatLoading = false
+          })
+
+          console.log(this.targetName, personality)
+        }
       },
       scrollToBottom() {
         this.$nextTick(() => {
@@ -418,7 +483,14 @@ export default {
         }).catch((error) => {
           console.error('Error: ', error)
         })
-      }
+      },
+      changeTargetName(name, personality) {
+        console.log(name)
+        this.targetName = name
+        this.personality = personality
+        this.userTextInput = this.userTextInput.replace(/@(\w+)/g, '').trim()
+        this.userTextInput = `@${this.targetName} ${this.userTextInput}`
+      },
     }
 }
 </script>

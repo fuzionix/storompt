@@ -212,6 +212,30 @@ export default {
               }
             }).then((res) => {
               this.closeDialog()
+              this.charactorName = ""
+              this.listPersonality = []
+              this.listPersonalityPool = [
+                'Brave',
+                'Arrogant',
+                'Intelligent',
+                'Manipulative',
+                'Ambitious',
+                'Greedy',
+                'Creative',
+                'Jealous',
+                'Funny',
+                'Loyal',
+                'Shy',
+                'Adventurous',
+                'Charming',
+                'Optimistic',
+                'Independent',
+                'Selfless',
+                'Curious',
+                'Trustworthy',
+                'Honest',
+              ]
+              
               this.$emit('updateCharList')
             }).catch((error) => {
               console.error('Error: ', error)

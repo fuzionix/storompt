@@ -34,7 +34,7 @@
         </div>
         <div v-if="tabState.charactor" value="charactor">
           <div class="p-7">
-            <button 
+            <div 
               v-for="charactor in JSON.parse(chatItem['charactor'])"
               :key="charactor"
               class="flex items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light"
@@ -42,7 +42,7 @@
               <div class="pr-4 border-r border-theme-gray">
                 <img src="@/src/assets/avatar/Shape=10, Color=Fennel Flower.svg" class="w-8" alt="">
               </div>
-              <div class="flex-1 pl-4 text-left">
+              <div class="flex-1 pl-4 border-r border-theme-gray text-left">
                 <h5 class="text-sm font-semibold">{{ charactor['name'] }}</h5>
                 <span 
                   v-for="personality in charactor['personality'].replace(/\[|\]|\'/g,'').split(',')"
@@ -52,7 +52,15 @@
                   {{ personality }}
                 </span>
               </div>
-            </button>
+              <div class="flex flex-col justify-center items-center pl-4">
+                <button @click="chatTo(charactor['name'], charactor['personality'])" class="opacity-70 hover:opacity-100 pb-2">
+                  <AtSign :size="18" :strokeWidth="1.5" />
+                </button>
+                <button @click="chatFrom(charactor['name'], charactor['personality'])" class="opacity-70 hover:opacity-100">
+                  <MessageSquareText :size="18" :strokeWidth="1.5" />
+                </button>
+              </div>
+            </div>
             <button 
               @click="openDialog()"
               class="flex justify-center items-center w-full mb-4 rounded-lg border border-theme-gray p-4 hover:bg-theme-light"
@@ -97,16 +105,23 @@
 <script>
 import { useStatusStore } from '@/src/store/useStatusStore'
 
-import { UserRoundPlus } from 'lucide-vue-next';
+import { 
+  UserRoundPlus,
+  AtSign,
+  MessageSquareText
+} from 'lucide-vue-next';
 
 export default {
     name: 'InfoPanel',
     components: {
-      UserRoundPlus 
+      UserRoundPlus,
+      AtSign,
+      MessageSquareText 
     },
     props: [
       'chatItem'
     ],
+    emits: ["changeTargetName", "receiveMessage"],
     data() {
       return {
         store: useStatusStore(),
@@ -134,6 +149,13 @@ export default {
       openDialog() {
         this.store.dialogStatus = true
       },
+      chatTo(charname, personality) {
+        this.$emit('changeTargetName', charname, personality)
+      },
+      chatFrom(charname, personality) {
+        this.$emit('changeTargetName', charname, personality)
+        this.$emit('receiveMessage', charname, personality)
+      }
     }
 }
 </script>

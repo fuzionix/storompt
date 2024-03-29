@@ -33,7 +33,7 @@
           </button>
         </div>
         <div v-if="tabState.charactor" value="charactor">
-          <div class="p-7">
+          <div v-if="chatItem['charactor']" class="p-7">
             <div 
               v-for="charactor in JSON.parse(chatItem['charactor'])"
               :key="charactor"
@@ -73,6 +73,15 @@
               </div>
             </button>
           </div>
+          <div v-else class="p-7">
+            <Alert class="mb-8" variant="destructive">
+              <AlertCircle class="w-4 h-4" />
+              <AlertTitle>Loading Error</AlertTitle>
+              <AlertDescription>
+                <p>Failed To Receive Charactor Info</p>
+              </AlertDescription>
+            </Alert>
+          </div>
         </div>
         <div v-if="tabState.background" id="background">
           <div class="p-7">
@@ -105,10 +114,13 @@
 <script>
 import { useStatusStore } from '@/src/store/useStatusStore'
 
+import { Alert, AlertDescription, AlertTitle } from '@/src/components_shadcn/ui/alert'
+
 import { 
   UserRoundPlus,
   AtSign,
-  MessageSquareText
+  MessageSquareText,
+  AlertCircle
 } from 'lucide-vue-next';
 
 export default {
@@ -116,7 +128,11 @@ export default {
     components: {
       UserRoundPlus,
       AtSign,
-      MessageSquareText 
+      MessageSquareText,
+      AlertCircle,
+      Alert, 
+      AlertDescription, 
+      AlertTitle
     },
     props: [
       'chatItem'

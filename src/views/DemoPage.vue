@@ -105,7 +105,16 @@
         <div 
           id="chat-input" 
           :class="store.sidemenuStatus ? 'md:w-[calc(100%-var(--menu))] xl:w-[calc(100%-var(--info)-var(--menu))]' : 'md:w-full xl:w-[calc(100%-var(--info))]'"
-          class="fixed bottom-0 h-[--chat] px-7 w-full duration-300 bg-theme-verylight shadow-line focus-within:shadow-line-active">
+          class="fixed bottom-0 h-[--chat] px-7 w-full duration-300 bg-theme-verylight shadow-line focus-within:shadow-line-active"
+        >
+          <div class="absolute flex -top-12 right-3 p-1 bg-theme-gridlight rounded-lg">
+            <button @click="chatRetry()" class="rounded p-1 hover:bg-[#0001]">
+              <RotateCw :size="20" :strokeWidth="1.5"/>
+            </button>
+            <button @click="chatUndo()" class="rounded p-1 hover:bg-[#0001]">
+              <Undo2 :size="20" :strokeWidth="1.5"/>
+            </button>
+          </div>
           <div id="input-frame" class="flex items-center h-full">
             <img src="@/src/assets/icon/magic_spark.svg" class="w-6" alt="">
             <div class="h-5 border-r border-r-theme-gray mx-7"></div>
@@ -144,7 +153,11 @@ import Sidemenu from '@/src/components/Sidemenu.vue'
 import InfoPanel from '@/src/components/InfoPanel.vue'
 import Dialog from '@/src/components/Dialog.vue'
 
-import { RefreshCcw } from 'lucide-vue-next';
+import { 
+  RefreshCcw,
+  Undo2,
+  RotateCw
+} from 'lucide-vue-next';
 
 import {
   AlertDialog,
@@ -170,6 +183,8 @@ export default {
     components: {
       'sidemenu': Sidemenu,
       'info-panel': InfoPanel,
+      Undo2,
+      RotateCw,
       AlertDialog,
       AlertDialogAction,
       AlertDialogCancel,
@@ -201,6 +216,7 @@ export default {
         chatHistory: [],
         animateText: [],
         userTextInput: '',
+        userTextInputTemp: '',
         isLeaving: false, // TODO
         toast: useToast().toast
       }
@@ -291,7 +307,7 @@ export default {
         if (textInput && !this.isActive) {
           this.isActive = true
 
-          if (this.chatHistory.slice(-1)[0]['danger'] == true) {
+          if (this.chatHistory.slice(-1)[0]?.['danger'] == true) {
             this.chatHistory.pop()
           }
 
@@ -344,6 +360,7 @@ export default {
             this.chatLoading = false
           })
 
+          this.userTextInputTemp = this.userTextInput
           this.userTextInput = ''
           this.scrollToBottom()
         }
@@ -381,6 +398,23 @@ export default {
         }).then((res) => {
           this.data = res.data
           this.chatItem['charactor'] = this.data['charactor']
+        }).catch((error) => {
+          console.error('Error: ', error)
+        })
+      },
+      chatRetry() {
+        console.log('retry')
+      },
+      chatUndo() {
+        console.log('undo')
+        axios({
+          method: 'post',
+          url: `http://127.0.0.1:8000/chat/undo/${this.$route.params.demoId}`,
+          data: {
+            chatHistory: JSON.stringify(this.chatHistory.slice(0, -1))
+          }
+        }).then((res) => {
+          this.chatHistory.pop()
         }).catch((error) => {
           console.error('Error: ', error)
         })

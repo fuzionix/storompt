@@ -471,18 +471,19 @@ export default {
         console.log('retry')
       },
       chatUndo() {
-        console.log('undo')
-        axios({
-          method: 'post',
-          url: `http://127.0.0.1:8000/chat/undo/${this.$route.params.demoId}`,
-          data: {
-            chatHistory: JSON.stringify(this.chatHistory.slice(0, -1))
-          }
-        }).then((res) => {
-          this.chatHistory.pop()
-        }).catch((error) => {
-          console.error('Error: ', error)
-        })
+        if (this.chatHistory.length > 1) {
+          axios({
+            method: 'post',
+            url: `http://127.0.0.1:8000/chat/undo/${this.$route.params.demoId}`,
+            data: {
+              chatHistory: JSON.stringify(this.chatHistory.slice(0, -1))
+            }
+          }).then((res) => {
+            this.chatHistory.pop()
+          }).catch((error) => {
+            console.error('Error: ', error)
+          })
+        }
       },
       changeTargetName(name, personality) {
         console.log(name)

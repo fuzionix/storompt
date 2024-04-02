@@ -282,7 +282,6 @@ export default {
         // this.$router.push('/error/no-data')
       }).finally(() => {
         this.chatLoading = false
-        // this.displayText()
       })
     },
     mounted() {
@@ -350,6 +349,7 @@ export default {
               userTextInput: textInput,
               targetName: this.targetName,
               background: this.chatItem['background'],
+              category: this.chatItem['classification'],
               personality: this.personality,
               chatHistory: JSON.stringify(this.chatHistory.slice(0, -1))
             }
@@ -403,6 +403,7 @@ export default {
             data: {
               targetName: this.targetName,
               background: this.chatItem['background'],
+              category: this.chatItem['classification'],
               personality: personality,
               chatHistory: JSON.stringify(this.chatHistory.slice(0, -1))
             }
@@ -489,7 +490,8 @@ export default {
         console.log(name)
         this.targetName = name
         this.personality = personality
-        this.userTextInput = this.userTextInput.replace(/@(\w+)/g, '').trim()
+        // this.userTextInput = this.userTextInput.replace(/@(\w+)/g, '').trim()
+        this.userTextInput = ''
         this.userTextInput = `@${this.targetName} ${this.userTextInput}`
       },
     }

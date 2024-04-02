@@ -248,7 +248,9 @@ const listGenre = ref([
   'Drama'
 ])
 const listCategory = ref([
-  'Multiple Charactors'
+  'Primary',
+  'Middle',
+  'Advanced'
 ])
 const listPersonality = ref([])
 const listPersonalityPool = ref([

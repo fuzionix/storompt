@@ -264,7 +264,7 @@ export default {
         }
 
         if (this.chatItem['charactor']) {
-          this.targetName = JSON.parse(this.chatItem['charactor'])[0]['name']
+          this.targetName = JSON.parse(this.chatItem['charactor'])[0]?.['name']
         }
 
         console.log('targetName', this.targetName)

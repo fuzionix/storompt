@@ -44,32 +44,32 @@
       </div>
       
       <div class="my-4 border-y border-y-theme-gridlight">
-        <button class="group relative flex flex-col justify-center w-full h-20 px-10 border-b border-b-theme-gridlight first:bg-theme-pale hover:bg-theme-light last:border-0 
+        <button @click="$router.push('/demo/ee28faa9-c4b5-4972-b516-66d985b8030e')" class="group relative flex flex-col justify-center w-full h-20 px-10 border-b border-b-theme-gridlight first:bg-theme-pale hover:bg-theme-light last:border-0 
         [&>*]:max-w-[200px] [&>*]:whitespace-nowrap [&>*]:overflow-hidden [&>*]:text-ellipsis">
           <h6 class="pb-1.5 text-xs opacity-50">Fantasy</h6>
-          <h3 class="pb-0.5 text-sm font-semibold">Forgotten City</h3>
-          <p class="text-xs opacity-70">Dive into an entire captivating story just by interacting</p>
+          <h3 class="pb-0.5 text-sm font-semibold">Harry Potter</h3>
+          <p class="text-xs opacity-70">Harry Potter is a magical story about a young boy named Harry who discovers he has special powers.</p>
           <img src="@/src/assets/icon/more_square.svg" class="hidden absolute right-2 top-2 w-5 rounded-full group-hover:block hover:bg-[#0001] active:bg-theme-darklight" alt="more">
         </button>
-        <button class="group relative flex flex-col justify-center w-full h-20 px-10 border-b border-b-theme-gridlight first:bg-theme-pale hover:bg-theme-light last:border-0 
+        <button @click="$router.push('/demo/cd64e696-5b61-4c77-bc7d-88ae6c2e3826')" class="group relative flex flex-col justify-center w-full h-20 px-10 border-b border-b-theme-gridlight first:bg-theme-pale hover:bg-theme-light last:border-0 
         [&>*]:max-w-[200px] [&>*]:whitespace-nowrap [&>*]:overflow-hidden [&>*]:text-ellipsis">
           <h6 class="pb-1.5 text-xs opacity-50">Science Fiction</h6>
-          <h3 class="pb-0.5 text-sm font-semibold">Hidden Secrets</h3>
-          <p class="text-xs opacity-70">Non suscipit magna interdum eu suscipit magna interdum</p>
+          <h3 class="pb-0.5 text-sm font-semibold">Star Wars</h3>
+          <p class="text-xs opacity-70">In a galaxy far, far away, there's a hero who's about to rise</p>
           <img src="@/src/assets/icon/more_square.svg" class="hidden absolute right-2 top-2 w-5 rounded-full group-hover:block hover:bg-[#0001] active:bg-theme-darklight" alt="more">
         </button>
-        <button class="group relative flex flex-col justify-center w-full h-20 px-10 border-b border-b-theme-gridlight first:bg-theme-pale hover:bg-theme-light last:border-0 
+        <button @click="$router.push('/demo/a4148169-6e94-4f89-b500-6632e1ac7aef')" class="group relative flex flex-col justify-center w-full h-20 px-10 border-b border-b-theme-gridlight first:bg-theme-pale hover:bg-theme-light last:border-0 
         [&>*]:max-w-[200px] [&>*]:whitespace-nowrap [&>*]:overflow-hidden [&>*]:text-ellipsis">
-          <h6 class="pb-1.5 text-xs opacity-50">Romance</h6>
-          <h3 class="pb-0.5 text-sm font-semibold">Midnight Whispers</h3>
-          <p class="text-xs opacity-70">Curabitur pellentesque nibh nib</p>
+          <h6 class="pb-1.5 text-xs opacity-50">Advanture</h6>
+          <h3 class="pb-0.5 text-sm font-semibold">The Lord of The Rings</h3>
+          <p class="text-xs opacity-70">In the realm of Middle-earth, where elves, dwarves, and humans coexist, a tale of epic proportions unfolds</p>
           <img src="@/src/assets/icon/more_square.svg" class="hidden absolute right-2 top-2 w-5 rounded-full group-hover:block hover:bg-[#0001] active:bg-theme-darklight" alt="more">
         </button>
-        <button class="group relative flex flex-col justify-center w-full h-20 px-10 border-b border-b-theme-gridlight first:bg-theme-pale hover:bg-theme-light last:border-0 
+        <button @click="$router.push('/demo/03ec8f1b-e679-4dd0-90d8-c86b92acb33e')" class="group relative flex flex-col justify-center w-full h-20 px-10 border-b border-b-theme-gridlight first:bg-theme-pale hover:bg-theme-light last:border-0 
         [&>*]:max-w-[200px] [&>*]:whitespace-nowrap [&>*]:overflow-hidden [&>*]:text-ellipsis">
           <h6 class="pb-1.5 text-xs opacity-50">Mystery</h6>
-          <h3 class="pb-0.5 text-sm font-semibold">Distant Shores</h3>
-          <p class="text-xs opacity-70">At maximus ante fermentum sit</p>
+          <h3 class="pb-0.5 text-sm font-semibold">Stranger Things</h3>
+          <p class="text-xs opacity-70">In the small town of Hawkins, something strange is happening</p>
           <img src="@/src/assets/icon/more_square.svg" class="hidden absolute right-2 top-2 w-5 rounded-full group-hover:block hover:bg-[#0001] active:bg-theme-darklight" alt="more">
         </button>
       </div>
@@ -131,6 +131,12 @@ export default {
     computed: {
     },
     created() {
+      this.$watch(
+        () => this.$route.params,
+        (toParams, previousParams) => {
+          window.location.reload()
+        }
+      )
     },
     methods: {
       closeSidemenu() {
